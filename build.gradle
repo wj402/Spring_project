@@ -1,6 +1,7 @@
 plugins {
   id 'java'
   id 'war'
+  id 'org.jetbrains.kotlin.jvm'
 }
 
 group 'org.zerock'
@@ -14,8 +15,6 @@ ext {
   junitVersion = '5.9.2'
 }
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
@@ -34,6 +33,9 @@ dependencies {
   implementation 'org.springframework:spring-webmvc:5.3.27'
   implementation 'org.springframework:spring-test:5.3.27'
 
+  implementation 'org.springframework:spring-jdbc:5.3.27'
+  implementation 'org.springframework:spring-tx:5.3.27'
+
   // https://mvnrepository.com/artifact/org.projectlombok/lombok
   compileOnly 'org.projectlombok:lombok:1.18.30'
   testCompileOnly 'org.projectlombok:lombok:1.18.30'
@@ -51,6 +53,13 @@ dependencies {
   implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
 // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
   implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.22.1'
+
+  // https://mvnrepository.com/artifact/org.mybatis/mybatis
+  implementation 'org.mybatis:mybatis:3.5.7'
+  // https://mvnrepository.com/artifact/org.mybatis/mybatis-spring
+  implementation 'org.mybatis:mybatis-spring:2.0.6'
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 
 }
