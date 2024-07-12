@@ -16,7 +16,7 @@
         <Logger name="com.zaxxer" level="DEBUG" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
-        <Logger name="javax.sql" level="TRACE" additivity="false">
+        <Logger name="org.zerock" level="TRACE" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
         <Root level="INFO">
