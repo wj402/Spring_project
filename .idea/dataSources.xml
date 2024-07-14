@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="springdb@localhost" uuid="eb328b58-f7b3-40d8-ad3c-284e22bab7c1">
-      <driver-ref>mariadb</driver-ref>
+    <data-source source="LOCAL" name="springdb@localhost" uuid="279d939a-093f-4b11-99ab-dfa3ece26335">
+      <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://localhost:3306/springdb</jdbc-url>
+      <remarks>springdb</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/springdb</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
