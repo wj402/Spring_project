@@ -6,7 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.service.BoardService;
 
@@ -34,7 +36,19 @@ public class BoardController {
 
     @GetMapping("/register")
     public void register() {
-        
+
+    }
+
+    @PostMapping("/register")
+    public String register(BoardVO boardVO, RedirectAttributes rttr) {
+
+        log.info("boardVO: " + boardVO);
+
+        Long bno = boardService.register(boardVO);
+
+        rttr.addFlashAttribute("result", bno);
+
+        return "redirect:/board/list";
     }
 
 //    @GetMapping("/read/{bno}")
@@ -70,13 +84,17 @@ public class BoardController {
 //    }
 
 //    @GetMapping({"/read/{bno}", "/modify/{bno}"})
-    @GetMapping({"/{job}/{bno}", "/{job}}/{bno}"})
+    @GetMapping({"/{job}/{bno}"})
     public String read(
             @PathVariable(name = "job") String job,
             @PathVariable(name = "bno") Long bno, Model model) {
 
         log.info("job: " + job);
         log.info("bno: " + bno);
+
+        if( !(job.equals("read") || job.equals("modify")) ) {
+            throw new RuntimeException("Bad Request job");
+        }
 
         BoardVO boardVO = boardService.get(bno);
 
