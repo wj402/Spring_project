@@ -74,6 +74,7 @@
         myModal.show()
     }
 
+
     document.querySelector('.tbody').addEventListener("click", (e) => {
 
         const target = e.target.closest("tr")

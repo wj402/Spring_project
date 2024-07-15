@@ -21,7 +21,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Bno</span>
             </div>
-            <input type="text" name="title" class="form-control" value="<c:out value="${vo.bno}"/>" readonly >
+            <input type="text" name="bno" class="form-control" value="<c:out value="${vo.bno}"/>" readonly >
         </div>
         <div class="input-group input-group-lg">
             <div class="input-group-prepend">
