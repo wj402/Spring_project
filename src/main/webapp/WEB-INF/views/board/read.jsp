@@ -55,16 +55,26 @@
     </div>
 </div>
 
+<form id="actionForm" method="get" action="/board/list">
+    <input type="hidden" name="pageNum" value="${cri.pageNum}" >
+    <input type="hidden" name="amount" value="${cri.amount}" >
+</form>
+
 <%@include file="../includes/footer.jsp"%>
 
 <script>
 
+    const actionForm = document.querySelector("#actionForm")
+    const bno = '${vo.bno}'
+
     document.querySelector(".btnList").addEventListener("click",(e)=> {
-        window.location="/board/list"
+        actionForm.setAttribute("action", "/board/list")
+        actionForm.submit()
     }, false)
 
-    document.querySelector(".btnModify").addEventListener("click",(e)=> {
-        window.location="/board/modify/${vo.bno}"
+    document.querySelector(".btnModify").addEventListener("click",(e) => {
+        actionForm.setAttribute("action", `/board/modify/\${bno}`)
+        actionForm.submit()
     }, false)
 
 </script>
