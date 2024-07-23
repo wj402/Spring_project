@@ -9,9 +9,13 @@ public interface BoardMapper {
 
     java.util.List<BoardVO> getPage(Criteria criteria);
 
-    int insert(BoardVO board);
+    int getTotal(Criteria criteria);
+
+
+    int insert(BoardVO boardVO);
 
     BoardVO select(Long bno);
 
-    int update(BoardVO board);
+    int update(BoardVO boardVO);
+
 }

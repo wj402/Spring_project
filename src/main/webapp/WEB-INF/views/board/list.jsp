@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@include file="../includes/header.jsp"%>
 
@@ -13,13 +14,12 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Tables</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
 
-            ${cri}
-
+            ${pageMaker}
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
@@ -42,6 +42,28 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <div>
+                <ul class="pagination">
+
+                    <c:if test="${pageMaker.prev}">
+                        <li class="page-item">
+                            <a class="page-link" href="${pageMaker.startPage -1}}" tabindex="-1" >Previous</a>
+                        </li>
+                    </c:if>
+
+                    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
+                        <li class="page-item ${cri.pageNum == num ? 'active' : ''}">
+                            <a class="page-link" href="${num}" >${num}</a>
+                        </li>
+                    </c:forEach>
+
+                    <c:if test="${pageMaker.next}">
+                        <li class="page-item">
+                            <a class="page-link" href="${pageMaker.endPage}}">Next</a>
+                        </li>
+                    </c:if>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -87,6 +109,18 @@
 
         window.location= `/board/read/\${bno}`
 
+    }, false)
+
+    document.querySelector(".pagination").addEventListener("click", (e) => {
+
+        e.preventDefault()
+        const target = e.target
+        console.log(target)
+
+        const targetPage = target.getAttribute("href")
+        console.log(targetPage)
+
+        window.location = `/board/list?pageNum=\${targetPage}`
     }, false)
 
 </script>
