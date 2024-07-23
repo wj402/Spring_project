@@ -19,7 +19,11 @@
     <div class="card-body">
         <div class="table-responsive">
 
-            ${pageMaker}
+            <form id="actionForm" method="get" action="/board/list">
+                <input type="hidden" name="pageNum" value="${cri.pageNum}">
+                <input type="hidden" name="amount" value="${cri.amount}">
+            </form>
+
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
@@ -99,15 +103,27 @@
         myModal.show()
     }
 
+    const actionForm = document.querySelector("#actionForm")
 
     document.querySelector('.tbody').addEventListener("click", (e) => {
 
         const target = e.target.closest("tr")
         const bno = target.dataset.bno
 
-        console.log(bno)
+        const before = document.querySelector("#clonedActionForm")
 
-        window.location= `/board/read/\${bno}`
+        if(before) {
+            before.remove()
+        }
+
+        const clonedActionForm = actionForm.cloneNode(true)
+        clonedActionForm.setAttribute("action", `/board/read/\${bno}`)
+        clonedActionForm.setAttribute("id", 'clonedActionForm')
+
+        console.log(clonedActionForm)
+        document.body.appendChild(clonedActionForm)
+
+        clonedActionForm.submit()
 
     }, false)
 
@@ -120,7 +136,10 @@
         const targetPage = target.getAttribute("href")
         console.log(targetPage)
 
-        window.location = `/board/list?pageNum=\${targetPage}`
+        actionForm.setAttribute("action", "/board/list")
+        actionForm.querySelector("input[name='pageNum']").value = targetPage
+        actionForm.submit()
+
     }, false)
 
 </script>

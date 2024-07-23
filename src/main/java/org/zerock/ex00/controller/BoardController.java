@@ -92,7 +92,9 @@ public class BoardController {
     @GetMapping({"/{job}/{bno}"})
     public String read(
             @PathVariable(name = "job") String job,
-            @PathVariable(name = "bno") Long bno, Model model) {
+            @PathVariable(name = "bno") Long bno,
+            @ModelAttribute("cri") Criteria cri,
+            Model model) {
 
         log.info("job: " + job);
         log.info("bno: " + bno);
@@ -133,8 +135,7 @@ public class BoardController {
     @PostMapping("/modify/{bno}")
     public String modify(
             @PathVariable(name="bno") Long bno,
-            BoardVO boardVO,
-            RedirectAttributes rttr) {
+            BoardVO boardVO) {
 
         boardVO.setBno(bno);
 
