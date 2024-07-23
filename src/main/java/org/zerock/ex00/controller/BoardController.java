@@ -27,6 +27,7 @@ public class BoardController {
             @ModelAttribute("cri") Criteria criteria,
             Model model) {
         log.info("list...........");
+        log.info("criteria: " + criteria);
 
         java.util.List<BoardVO> list = boardService.getList(criteria);
 
