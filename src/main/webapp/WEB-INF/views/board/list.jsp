@@ -17,6 +17,21 @@
         <h6 class="m-0 font-weight-bold text-primary">DataTables Tables</h6>
     </div>
     <div class="card-body">
+
+        <div>
+            <select name='typeSelect'>
+                <option value="" >--</option>
+                <option value="T" ${cri.typeStr == 'T' ? 'selected' : ''} >제목</option>
+                <option value="C" ${cri.typeStr == 'C' ? 'selected' : ''} >내용</option>
+                <option value="W" ${cri.typeStr == 'W' ? 'selected' : ''} >작성자</option>
+                <option value="TC" ${cri.typeStr == 'TC' ? 'selected' : ''} >제목 OR 내용</option>
+                <option value="TW" ${cri.typeStr == 'TW' ? 'selected' : ''} >제목 OR 작성자</option>
+                <option value="TCW" ${cri.typeStr == 'TCW' ? 'selected' : ''} >제목 OR 내용 OR 작성자</option>
+            </select>
+            <input type='text' name='keywordInput' value="<c:out value="${cri.keyword}" />" />
+            <button class="btn btn-default searchBtn">Search</button>
+        </div>
+
         <div class="table-responsive">
 
             <form id="actionForm" method="get" action="/board/list">
@@ -147,6 +162,44 @@
         actionForm.submit()
 
     }, false)
+
+    document.querySelector(".searchBtn").addEventListener("click",(e)=> {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const selectObj = document.querySelector("select[name='typeSelect']")
+
+        const selectValue =selectObj.options[selectObj.selectedIndex].value
+
+        console.log("selectValue----------")
+        console.log(selectValue)
+
+        const arr = selectValue.split("")
+
+        console.log(arr)
+
+        //actionForm에 hidden태그로 만들어서 검색 조건 추가
+        // 페이지 번호도 1페이지로
+        // amount도 새로 만들자.
+
+        let str = ''
+
+        str = `<input type="hidden" name='pageNum' value=1>`
+        str += `<input type="hidden" name='amount' value=${cri.amount}>`
+
+        if(arr && arr.length > 0) {
+            for (const type of arr) {
+                str += `<input type="hidden" name='types' value=\${type}>`
+            }
+        }
+        const keywordValue = document.querySelector("input[name='keywordInput']").value
+        str += `<input type="hidden" name='keyword' value=\${keywordValue}>`
+        actionForm.innerHTML = str
+
+        //console.log(str)
+
+        actionForm.submit()
+    })
 
 </script>
 
