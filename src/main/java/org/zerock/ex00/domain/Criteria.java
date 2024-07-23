@@ -12,6 +12,16 @@ public class Criteria {
     private String[] types;
     private String keyword;
 
+    private String typeStr;
+
+    public void setTypes(String[] types) {
+        this.types = types;
+
+        if(types != null && types.length > 0) {
+            typeStr = String.join("", types);
+        }
+    }
+
     public void setPageNum(int pageNum) {
 
         if(pageNum <= 0) {

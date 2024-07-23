@@ -136,13 +136,16 @@ public class BoardController {
     @PostMapping("/modify/{bno}")
     public String modify(
             @PathVariable(name="bno") Long bno,
-            BoardVO boardVO) {
+            BoardVO boardVO,
+            RedirectAttributes rttr) {
 
         boardVO.setBno(bno);
 
         log.info("boardVO: " + boardVO);
 
         boardService.modify(boardVO);
+
+        rttr.addFlashAttribute("result", boardVO.getBno());
 
         return "redirect:/board/read/" +bno;
     }
