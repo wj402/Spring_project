@@ -16,23 +16,30 @@ public class BoardService {
 
     private final BoardMapper boardMapper;
 
-    public java.util.List<BoardVO> getList(Criteria criteria) {
+    public java.util.List<BoardVO> getList(Criteria criteria){
 
         return boardMapper.getPage(criteria);
     }
 
-    public Long register(BoardVO boardVO) {
+    public int getTotal(Criteria criteria){
 
-        log.info("------------------------" + boardVO);
+        return boardMapper.getTotal(criteria);
+    }
 
-       int count = boardMapper.insert(boardVO);
+    public Long register(BoardVO boardVO){
 
-       return boardVO.getBno();
+        log.info("--------------"+ boardVO);
+
+        int count = boardMapper.insert(boardVO);
+
+        return boardVO.getBno();
+
     }
 
     public java.util.List<BoardVO> list() {
 
         return boardMapper.getList();
+
     }
 
     public BoardVO get(Long bno) {
@@ -40,14 +47,12 @@ public class BoardService {
         return boardMapper.select(bno);
     }
 
-    public boolean modify(BoardVO boardVO) {
+    public boolean modify(BoardVO vo){
 
-        return boardMapper.update(boardVO) == 1;
+        return boardMapper.update(vo) == 1;
     }
 
     public boolean remove(Long bno) {
-
         return true;
     }
-
 }
