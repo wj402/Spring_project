@@ -68,6 +68,8 @@ public class BoardMapperTests {
         Criteria criteria = new Criteria();
         criteria.setPageNum(2);
         //1, 10
+        criteria.setTypes(new String[]{"T", "C", "W"});
+        criteria.setKeyword("1");
 
         java.util.List<BoardVO> list = boardMapper.getPage(criteria);
 
