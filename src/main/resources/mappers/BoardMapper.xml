@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -6,6 +7,21 @@
 
     <select id="getList" resultType="BoardVO">
         select * from tbl_board where bno > 0 order by bno desc
+    </select>
+
+    <select id="getPage" resultType="BoardVO">
+        select * from
+        tbl_board
+        where bno > 0
+        order by bno desc
+        limit #{skip}, #{amount}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(bno)
+        from
+        tbl_board
+        where bno > 0
     </select>
 
     <insert id="insert">
