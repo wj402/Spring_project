@@ -181,7 +181,7 @@
             const {rno, replyText, replyer} = reply
 
             str += `
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li data-rno="\${rno}" class="list-group-item d-flex justify-content-between align-items-center">
                     \${rno} --- \${replyText}
                     <span class="badge bg-primary rounded-pill">${replyer}</span>
                 </li>`
@@ -227,8 +227,25 @@
         const pageNum = target.getAttribute("href")
 
         console.log(pageNum)
-
+        currentPage = pageNum
         getList(pageNum)
+
+    }, false)
+
+    // 현재 댓글 페이지
+    let currentPage = 1
+    let currentRno = 0
+
+    replyUL.addEventListener("click", e=> {
+        e.stopPropagation()
+        const target = e.target
+        //console.log(target)
+        currentRno =target.getAttribute("data-rno")
+
+        //console.log("rno: " + rno)
+        //console.log("currentPage:" + currentPage)
+
+        getReply(currentRno)
 
     }, false)
 
@@ -239,7 +256,14 @@
     const replyTextInput = document.querySelector("input[name='replyText']")
     const replyerInput = document.querySelector("input[name='replyer']")
 
-    replyAddModal.show()
+    const getReply = async (rno) => {
+
+        const res = await axios.get(`/reply/\${rno}`)
+
+        console.log(res)
+    }
+
+    //replyAddModal.show()
 
     document.querySelector("#replyRegBtn").addEventListener("click", e => {
         e.preventDefault()
