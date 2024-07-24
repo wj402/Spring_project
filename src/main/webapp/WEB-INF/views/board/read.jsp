@@ -76,6 +76,37 @@
     </ul>
 </div>
 
+<div class="modal" id="replyModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Reply Text</span>
+                    </div>
+                    <input type="text" name="replyText" class="form-control" >
+                </div>
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Replyer</span>
+                    </div>
+                    <input type="text" name="replyer" class="form-control" >
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="replyRegBtn" type="button" class="btn btn-primary">Register</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <form id="actionForm" method="get" action="/board/list">
     <input type="hidden" name="pageNum" value="${cri.pageNum}" >
     <input type="hidden" name="amount" value="${cri.amount}" >
@@ -126,6 +157,18 @@
         const replyList = data.replyList
 
         printReplyList(pageDTO, replyList)
+
+    }
+
+    const registerReply = async (replyObj) => {
+
+        const res = await axios.post('/reply/register', replyObj )
+
+        const data = res.data
+
+        const lastpage = Math.ceil(data.COUNT / 10.0)
+
+        getList(lastpage)
 
     }
 
@@ -190,6 +233,29 @@
     }, false)
 
     getList()
+
+    const replyAddModal = new bootstrap.Modal(document.querySelector('#replyModal'))
+
+    const replyTextInput = document.querySelector("input[name='replyText']")
+    const replyerInput = document.querySelector("input[name='replyer']")
+
+    replyAddModal.show()
+
+    document.querySelector("#replyRegBtn").addEventListener("click", e => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const replyObj = {
+            replyText: replyTextInput.value,
+            replyer: replyerInput.value,
+            bno: boardBno
+        }
+
+        registerReply(replyObj).then( result => {
+            replyAddModal.hide()
+        })
+
+    }, false)
 
 </script>
 
