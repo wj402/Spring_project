@@ -275,6 +275,13 @@
         return res.data // {Result:true}
     }
 
+    const modifyReply = async (replyObj) => {
+
+        const res = await axios.put(`/reply/\${currentRno}`, replyObj)
+
+        return res.data
+    }
+
     //replyAddModal.show()
 
     document.querySelector("#replyRegBtn").addEventListener("click", e => {
@@ -300,7 +307,24 @@
             replyAddModal.hide()
             getList()
         })
-    })
+    }, false)
+
+    document.querySelector("#replyModBtn").addEventListener("click", e=> {
+
+        const replyObj = {
+            replyText: replyTextInput.value,
+            replyerInput: replyerInput.value,
+            bno: boardBno
+        }
+
+        modifyReply(replyObj).then( result => {
+
+            alert("댓글이 수정되었습니다.")
+            replyAddModal.hide()
+            getList(currentPage)
+        })
+
+    }, false)
 
 </script>
 
