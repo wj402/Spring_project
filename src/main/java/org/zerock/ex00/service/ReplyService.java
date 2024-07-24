@@ -18,7 +18,8 @@ public class ReplyService {
 
     public Long register(ReplyVO replyVO) {
 
-        return replyMapper.insert(replyVO);
+        replyMapper.insert(replyVO);
+        return  replyVO.getRno();
     }
 
     public ReplyVO get(Long rno) {

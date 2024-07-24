@@ -3,10 +3,7 @@ package org.zerock.ex00.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.domain.PageDTO;
 import org.zerock.ex00.domain.ReplyVO;
@@ -22,6 +19,41 @@ import java.util.Map;
 public class ReplyController {
 
     private final ReplyService replyService;
+
+    @PostMapping("/register")
+    public Map<String, Long> register( @RequestBody ReplyVO replyVO) {
+
+        log.info("----------------");
+        log.info(replyVO);
+
+        Long rno = replyService.register(replyVO);
+        return Map.of("RNO", rno);
+    }
+
+    @GetMapping("{rno}")
+    public ReplyVO get(@PathVariable("rno")Long rno) {
+        return replyService.get(rno);
+    }
+
+    @DeleteMapping("/{rno}")
+    public Map<String, Boolean> delete(@PathVariable("rno")Long rno) {
+
+        boolean result = replyService.remove(rno);
+
+        return Map.of("Result", result);
+    }
+
+    @PutMapping("/{rno}")
+    public Map<String, Boolean> modify(
+            @PathVariable("rno")Long rno,
+            @RequestBody ReplyVO replyVO) {
+
+       replyVO.setRno(rno);
+
+       boolean result = replyService.modify(replyVO);
+
+       return Map.of("Result", result);
+    }
 
     @GetMapping("/list/{bno}")
     public Map<String, Object> getListOfBoard(@PathVariable("bno") Long bno, Criteria criteria) {
