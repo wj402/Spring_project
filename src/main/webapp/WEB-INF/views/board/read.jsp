@@ -100,8 +100,10 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button id="replyModBtn" type="button" class="btn btn-warning">Modify</button>
+                <button id="replyDelBtn" type="button" class="btn btn-danger">Delete</button>
                 <button id="replyRegBtn" type="button" class="btn btn-primary">Register</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
             </div>
         </div>
     </div>
@@ -245,7 +247,11 @@
         //console.log("rno: " + rno)
         //console.log("currentPage:" + currentPage)
 
-        getReply(currentRno)
+        getReply(currentRno).then( result => {
+            replyTextInput.value = result.replyText
+            replyerInput.value =  result.replyer
+            replyAddModal.show()
+        } )
 
     }, false)
 
@@ -260,7 +266,13 @@
 
         const res = await axios.get(`/reply/\${rno}`)
 
-        console.log(res)
+        return res.data
+    }
+
+    const deleteReply = async (rno) => {
+        const res = await axios.delete(`/reply/\${rno}`)
+
+        return res.data // {Result:true}
     }
 
     //replyAddModal.show()
@@ -280,6 +292,15 @@
         })
 
     }, false)
+
+    document.querySelector("#replyDelBtn").addEventListener("click", e => {
+
+        deleteReply(currentRno).then(result => {
+            alert('댓글이 삭제되었습니다')
+            replyAddModal.hide()
+            getList()
+        })
+    })
 
 </script>
 
