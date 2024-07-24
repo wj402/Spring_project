@@ -51,8 +51,16 @@
             <button type="submit" class="btn btn-info btnList">LIST</button>
             <button type="submit" class="btn btn-warning btnModify">MODIFY</button>
         </div>
-
     </div>
+</div>
+
+<div class="card shadow mb-4">
+    <ul class="list-group replyList">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            A list item
+            <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+    </ul>
 </div>
 
 <form id="actionForm" method="get" action="/board/list">
@@ -68,6 +76,7 @@
 </form>
 
 <%@include file="../includes/footer.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
 
@@ -83,6 +92,47 @@
         actionForm.setAttribute("action", `/board/modify/\${bno}`)
         actionForm.submit()
     }, false)
+
+</script>
+
+<script>
+
+    const boardBno = ${vo.bno}
+    const replyUL = document.querySelector(".replyList")
+
+    const getList = async(pageParam, amountParam ) => {
+        const pageNum = pageParam || 1
+        const amount = amountParam || 10
+
+        const res = await axios.get(`/reply/list/\${boardBno}`, {
+            params: {pageNum, amount}
+        })
+        const data = res.data
+        const pageDTO = data.pageDTO
+        const replyList = data.replyList
+
+        printReplyList(pageDTO, replyList)
+
+    }
+
+    const printReplyList = (pageDTO, replyList) => {
+        replyUL.innerHTML = ""
+
+        let str = ''
+        for (const reply of replyList) {
+
+            const {rno, replyText, replyer} = reply
+
+            str += `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    \${rno} --- \${replyText}
+                    <span class="badge bg-primary rounded-pill">${replyer}</span>
+                </li>`
+        }
+        replyUL.innerHTML = str
+    }
+
+    getList()
 
 </script>
 
