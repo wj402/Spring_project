@@ -13,4 +13,37 @@
         values (#{bno},#{replyText},#{replyer})
     </insert>
 
+    <select id="selectOne" resultType="ReplyVO">
+        select * from tbl_reply where rno = #{rno}
+    </select>
+
+    <delete id="deleteOne">
+        delete from tbl_reply where rno = #{rno}
+    </delete>
+
+    <update id="updateOne">
+        update tbl_reply
+        set
+        replyText = 'AAA' ,
+        updateDate = now()
+        where rno = #{rno};
+    </update>
+
+    <select id="getList" resultType="ReplyVO">
+        select *
+        from tbl_reply
+        where
+            bno = #{bno}
+            and rno > 0
+        limit #{cri.skip}, #{cri.amount}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(rno)
+        from tbl_reply
+        where bno = #{bno}
+    </select>
+
+
+
 </mapper>
