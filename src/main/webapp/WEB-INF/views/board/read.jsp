@@ -61,6 +61,19 @@
             <span class="badge bg-primary rounded-pill">14</span>
         </li>
     </ul>
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
 </div>
 
 <form id="actionForm" method="get" action="/board/list">
@@ -99,6 +112,7 @@
 
     const boardBno = ${vo.bno}
     const replyUL = document.querySelector(".replyList")
+    const pageUL = document.querySelector(".pagination")
 
     const getList = async(pageParam, amountParam ) => {
         const pageNum = pageParam || 1
@@ -130,7 +144,50 @@
                 </li>`
         }
         replyUL.innerHTML = str
+
+        //-------------------------------------------
+        const {startPage, endPage, prev, next} = pageDTO
+        const pageNum = pageDTO.cri.pageNum
+
+        let pageStr = ''
+
+        //prev
+        if(prev) {
+            pageStr +=
+                `<li class="page-item">
+                     <a class="page-link" href="\${startPage-1}" tabindex="-1">Previous</a>
+                </li>`
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+
+            pageStr += `<li class="page-item \${i == pageNum? 'active': ''}">
+            <a class="page-link" href="\${i}">\${i}</a>
+        </li>`
+        }
+
+        //next
+        if(next) {
+            pageStr +=
+                `<li class="page-item">
+                     <a class="page-link" href="\${endPage+1}" tabindex="-1">next</a>
+                </li>`
+        }
+
+        pageUL.innerHTML = pageStr
     }
+
+    pageUL.addEventListener("click", (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const target = e.target
+        const pageNum = target.getAttribute("href")
+
+        console.log(pageNum)
+
+        getList(pageNum)
+
+    }, false)
 
     getList()
 
