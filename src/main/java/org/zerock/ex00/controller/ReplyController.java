@@ -27,7 +27,10 @@ public class ReplyController {
         log.info(replyVO);
 
         Long rno = replyService.register(replyVO);
-        return Map.of("RNO", rno);
+
+        int replyCount = replyService.getReplyCountOfBoard(replyVO.getBno());
+
+        return Map.of("RNO", rno, "COUNT", (long) replyCount);
     }
 
     @GetMapping("{rno}")
