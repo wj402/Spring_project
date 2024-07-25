@@ -5,11 +5,42 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:http>
-        <security:form-login/>
-    </security:http>
-    <security:authentication-manager>
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
+    <bean id="custom403Handler"
+            class="org.zerock.ex00.security.handler.Custom403Handler" />
+
+    <bean id="customLoginSuccessHandler"
+            class="org.zerock.ex00.security.handler.CustomLoginSuccessHandler" />
+
+    <security:http>
+        <security:form-login
+                login-page="/member/login"
+                authentication-success-handler-ref="customLoginSuccessHandler"
+        />
+
+        <security:csrf disabled="true" />
+
+        <security:access-denied-handler ref="custom403Handler" />
+
+        <security:intercept-url pattern="/sample/all" access="permitAll()" />
+        <security:intercept-url pattern="/sample/manager" access="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')" />
+
+        <security:intercept-url pattern="/sample/admin" access="hasRole({'ROLE_ADMIN'})" />
+
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="user1"
+                               authorities="ROLE_MANAGER"
+                               password="$2a$10$uAUS01moWsTN.ZjDF8SLTuP50pxSwsNipSI6CXty.2Mos/Qez/.7x" />
+                <security:user name="admin1"
+                               authorities="ROLE_MANAGER"
+                               password="$2a$10$uAUS01moWsTN.ZjDF8SLTuP50pxSwsNipSI6CXty.2Mos/Qez/.7x" />
+            </security:user-service>
+        </security:authentication-provider>
     </security:authentication-manager>
 
 </beans>
