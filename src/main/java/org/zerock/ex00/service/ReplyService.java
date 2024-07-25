@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.domain.ReplyVO;
 import org.zerock.ex00.mappers.ReplyMapper;
+import org.zerock.ex00.mappers.TimeMapper;
 
 @Transactional
 @RequiredArgsConstructor
@@ -15,6 +16,14 @@ import org.zerock.ex00.mappers.ReplyMapper;
 public class ReplyService {
 
     private final ReplyMapper replyMapper;
+
+    private final TimeMapper timeMapper;
+
+    public void insertTwo(String str) {
+
+        timeMapper.insert1(str);
+        timeMapper.insert2(str);
+    }
 
     public Long register(ReplyVO replyVO) {
 

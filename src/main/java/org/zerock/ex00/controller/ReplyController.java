@@ -73,4 +73,12 @@ public class ReplyController {
         return Map.of("replyList", replyList, "pageDTO", pageDTO);
 
     }
+
+    @GetMapping("/txtest")
+    public String[] get(String str) {
+
+        replyService.insertTwo(str);
+
+        return new String[] {"A", "B", "C"};
+    }
 }
