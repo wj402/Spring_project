@@ -131,6 +131,26 @@
         e.preventDefault()
         e.stopPropagation()
 
+        // 삭제해야 하는 파일들을 hidden 태그로 만들어준다.
+        const fileArr = document.querySelectorAll(".attachList button")
+
+        console.log(fileArr)
+
+        if(fileArr && fileArr.length > 0) {
+
+            let str = ''
+
+            for (const btn of fileArr) {
+                const ano = btn.getAttribute("data-ano")
+                const fullName = btn.getAttribute("data-fullname")
+
+                str += `<input type='hidden' name='anos' value='\${ano}'> `
+                str += `<input type='hidden' name='fullNames' value='\${fullName}'> `
+            }//end for
+            document.querySelector(".deleteImages").innerHTML += str
+
+        }//end if
+
         actionForm.action = `/board/remove/\${bno}`
         actionForm.method = 'post'
         actionForm.submit()
