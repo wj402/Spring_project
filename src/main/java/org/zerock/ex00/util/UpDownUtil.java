@@ -74,4 +74,21 @@ public class UpDownUtil {
 
         return list;
     }
+
+    public void deleteFiles(String[] fileNames) {
+
+        if(fileNames == null || fileNames.length == 0) {
+            return;
+        }
+
+        for ( String fileName : fileNames) {
+
+            File originalFile = new File(UPLOAD + File.separator + fileName);
+            File thumFile = new File(UPLOAD + File.separator + "_" + fileName);
+
+            originalFile.delete();
+            thumFile.delete();
+
+        } // end for
+    }
 }
