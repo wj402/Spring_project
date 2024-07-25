@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.ex00.domain.AttachVO;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.domain.PageDTO;
@@ -61,11 +62,13 @@ public class BoardController {
         log.info("-------------------------");
         log.info(Arrays.toString(files));
 
-        upDownUtil.upload(files);
+        List<AttachVO> attachVOList = upDownUtil.upload(files);
 
-//        Long bno = boardService.register(boardVO);
-//
-//        rttr.addFlashAttribute("result", bno);
+        boardVO.setAttachVOList(attachVOList);
+
+        Long bno = boardService.register(boardVO);
+
+        rttr.addFlashAttribute("result", bno);
 
         return "redirect:/board/list";
     }
