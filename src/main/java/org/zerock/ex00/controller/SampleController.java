@@ -10,9 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/sample")
 public class SampleController {
 
+    @GetMapping("/all")
+    public void all() {
+        log.info("ALL---------------");
+    }
+
+    @GetMapping("/manager")
+    public void manager() {
+        log.info("ALL---------------");
+    }
+
+    @GetMapping("/admin")
+    public void admin() {
+        log.info("admin---------------");
+    }
+
     @GetMapping("/basic")
     public void basic() {
         log.info("basic---------------");
     }
+
 
 }
