@@ -5,12 +5,15 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.domain.PageDTO;
 import org.zerock.ex00.service.BoardService;
+import org.zerock.ex00.util.UpDownUtil;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -18,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
+
+    private final UpDownUtil upDownUtil;
 
     private final BoardService boardService;
 
@@ -46,13 +51,21 @@ public class BoardController {
     }
 
     @PostMapping("/register")
-    public String register(BoardVO boardVO, RedirectAttributes rttr) {
+    public String register(
+            BoardVO boardVO,
+            @RequestParam(value = "files", required = false ) MultipartFile[] files,
+            RedirectAttributes rttr) {
 
         log.info("boardVO: " + boardVO);
 
-        Long bno = boardService.register(boardVO);
+        log.info("-------------------------");
+        log.info(Arrays.toString(files));
 
-        rttr.addFlashAttribute("result", bno);
+        upDownUtil.upload(files);
+
+//        Long bno = boardService.register(boardVO);
+//
+//        rttr.addFlashAttribute("result", bno);
 
         return "redirect:/board/list";
     }
