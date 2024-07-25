@@ -142,7 +142,7 @@ public class BoardController {
 
         log.info("boardVO: " + boardVO);
 
-        boardService.modify(boardVO);
+        boardService.modify(boardVO, null);
 
         rttr.addFlashAttribute("result", boardVO.getBno());
 
@@ -153,13 +153,26 @@ public class BoardController {
     public String modify(
             @PathVariable(name="bno") Long bno,
             BoardVO boardVO,
+            @RequestParam(value = "files", required = false ) MultipartFile[] files,
+            @RequestParam(value = "anos", required = false ) Long[] anos,
+            @RequestParam(value = "fullNames", required = false ) String[] fullNames,
             RedirectAttributes rttr) {
 
         boardVO.setBno(bno);
 
+        List<AttachVO> attachVOList = upDownUtil.upload(files);
+
+        if(attachVOList != null && attachVOList.size() > 0) {
+            boardVO.setAttachVOList(attachVOList);
+        }
+        boardVO.setAttachVOList(attachVOList);
+
         log.info("boardVO: " + boardVO);
 
-        boardService.modify(boardVO);
+        boardService.modify(boardVO, anos);
+
+        // 삭제할 파일들을 삭제
+        upDownUtil.deleteFiles(fullNames);
 
         rttr.addFlashAttribute("result", boardVO.getBno());
 

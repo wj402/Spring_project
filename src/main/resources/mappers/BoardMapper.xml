@@ -91,4 +91,15 @@
         insert into tbl_attach (bno, uuid, filename)
         values (#{bno}, #{uuid}, #{fileName})
     </insert>
+
+    <delete id="deleteAttachFiles">
+
+        delete from tbl_attach
+        <where>
+            <foreach collection="anos" item="ano" open="ano in (" close=")" separator=",">
+                #{ano}
+            </foreach>
+        </where>
+    </delete>
+
 </mapper>
