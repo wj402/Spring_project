@@ -17,7 +17,7 @@
     </div>
     <div class="card-body">
 
-        <form action="/board/register" method="post" enctype="multipart/form-data">
+        <form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
             <div class="form-group input-group input-group-lg">
                 <div>
                     <span class="input-group-text">Title</span>
@@ -44,7 +44,7 @@
             </div>
 
             <div class="input-group input-group-lg">
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                <button type="submit" class="btn btn-primary submitBtn">SUBMIT</button>
             </div>
         </form>
     </div>
@@ -54,6 +54,31 @@
 
 <script>
 
+    const formObj = document.querySelector("#registerForm")
+
+    document.querySelector(".submitBtn").addEventListener("click", e => {
+        e.stopPropagation()
+        e.preventDefault()
+
+        const fileReg = /(.*?)\.(gif|png|jpg|jpeg|bmp)$/;
+
+        // file suffix check 파일 확장자 체크
+        const fileInput = document.querySelector("input[name='files']")
+
+        const fileArr = fileInput.files
+
+        if(fileArr && fileArr.length > 0) {
+            for (const file of fileArr) {
+                if(!file.name.match(fileReg)) {
+                    alert("첨부파일 확장자 위반")
+                    return;
+                }
+            }
+        }
+
+        formObj.submit()
+
+    }, false)
 </script>
 
 <%@include file="../includes/end.jsp"%>
