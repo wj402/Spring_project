@@ -1,6 +1,8 @@
 package org.zerock.ex00.util;
 
 import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,12 +35,25 @@ public class UpDownUtil {
 
             String saveFileName = uuid + "_" + fileName;
 
+            //jpg,gif,png,bmp
+            String suffix = fileName.substring(fileName.lastIndexOf(".")+1);
+
+            String regExp = "^(jpg|jpeg|JPG|JPEG|png|PNG|gif|GIF|bmp|BMP)";
+
+            if(!suffix.matches(regExp)) {
+                continue;
+            }
+
             try(
                     InputStream in = file.getInputStream();
                     OutputStream out = new FileOutputStream(UPLOAD + File.separator +saveFileName)
                     ){
 
                 FileCopyUtils.copy(in,out);
+
+                Thumbnails.of( new File(UPLOAD + File.separator +saveFileName))
+                        .size(200,200)
+                        .toFile(UPLOAD + File.separator+"s_" +saveFileName);
 
             }catch(Exception e) {
                 log.error(e.getMessage());

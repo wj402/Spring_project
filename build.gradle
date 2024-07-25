@@ -46,6 +46,10 @@ dependencies {
   // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
   implementation 'org.aspectj:aspectjweaver:1.9.8'
 
+  // https://mvnrepository.com/artifact/net.coobird/thumbnailator
+  implementation 'net.coobird:thumbnailator:0.4.20'
+
+
 
 
 
