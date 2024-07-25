@@ -19,5 +19,6 @@
     <mvc:annotation-driven/>
 
     <mvc:resources mapping="/resources/**" location="classpath:/static/" />
+    <mvc:resources mapping="/files/**" location="file:///C:/upload/" />
 
 </beans>
