@@ -6,11 +6,14 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.ex00.domain.AttachVO;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -19,10 +22,12 @@ public class UpDownUtil {
 
     private final String UPLOAD = "C:\\upload";
 
-    public void upload(MultipartFile[] files) {
+    public java.util.List<AttachVO> upload(MultipartFile[] files) {
         if(files == null || files.length == 0) {
-            return;
+            return null;
         }
+
+        List<AttachVO> list = new ArrayList<>();
 
         for(MultipartFile file : files) {
 
@@ -55,10 +60,18 @@ public class UpDownUtil {
                         .size(200,200)
                         .toFile(UPLOAD + File.separator+"s_" +saveFileName);
 
+                AttachVO attachVO = new AttachVO();
+                attachVO.setUuid(uuid);
+                attachVO.setFileName(fileName);
+
+                list.add(attachVO);
+
             }catch(Exception e) {
                 log.error(e.getMessage());
             }//end catch
 
         }//파일 업로드 처리 for
+
+        return list;
     }
 }
