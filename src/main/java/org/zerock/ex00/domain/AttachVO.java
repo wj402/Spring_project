@@ -9,4 +9,11 @@ public class AttachVO {
     private Long bno;
     private String uuid;
     private String fileName;
+
+    public String getFullName() {
+        if(ano == null) {
+            return null;
+        }
+        return uuid+"_"+fileName;
+    }
 }

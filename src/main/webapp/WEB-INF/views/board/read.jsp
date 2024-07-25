@@ -52,6 +52,21 @@
             <button type="submit" class="btn btn-warning btnModify">MODIFY</button>
         </div>
     </div>
+
+    <div class="attachList d-flex">
+        <c:if test="${vo.attachVOList != null && vo.attachVOList.size() > 0}">
+            <c:forEach items="${vo.attachVOList}" var="attach">
+                <c:if test="${attach.ano != null}">
+                    <div>
+                        <a href="/files/${attach.fullName}" target="_blank">
+                            <img src="/files/s_${attach.fullName}"/>
+                        </a>
+                    </div>
+                </c:if>
+            </c:forEach>
+
+        </c:if>
+    </div>
 </div>
 
 <div class="card shadow mb-4">
