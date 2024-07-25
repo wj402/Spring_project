@@ -17,7 +17,7 @@
     </div>
     <div class="card-body">
 
-        <form id="actionForm" action="/board/modify" method="post">
+        <form id="actionForm" action="/board/modify" method="post" enctype="multipart/form-data">
             <div class="input-group input-group-lg">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Bno</span>
@@ -48,13 +48,46 @@
                 </div>
                 <input type="text" class="form-control" value="<c:out value="${vo.regDate}"/>" readonly>
             </div>
+
+            <div class="form-group input-group input-group-lg">
+                <div>
+                    <span class="input-group-text">Files</span>
+                </div>
+                <input type="file" name="files" class="form-control" multiple>
+            </div>
+
             <div class="input-group input-group-lg">
                 <button type="submit" class="btn btn-info btnList">LIST</button>
                 <button type="submit" class="btn btn-warning btnModify">MODIFY</button>
                 <button type="submit" class="btn btn-danger btnRemove">REMOVE</button>
             </div>
+
+            <div class="deleteImages">
+
+            </div>
+
         </form>
     </div>
+
+    <div class="card">
+        <div class="attachList d-flex">
+            <c:if test="${vo.attachVOList != null && vo.attachVOList.size() > 0}">
+                <c:forEach items="${vo.attachVOList}" var="attach">
+                    <c:if test="${attach.ano != null}">
+                        <div class="d-flex flex-column m-1">
+                            <img src="/files/s_${attach.fullName}"/>
+                            <button class="btn btn-danger removeImgBtn"
+                                    data-ano="${attach.ano}"
+                                    data-fullname="${attach.fullName}"
+                            >X</button>
+                        </div>
+                    </c:if>
+                </c:forEach>
+
+            </c:if>
+        </div>
+    </div>
+
 </div>
 
 <form id="listForm" action="/board/list">
@@ -98,9 +131,57 @@
         e.preventDefault()
         e.stopPropagation()
 
+        // 삭제해야 하는 파일들을 hidden 태그로 만들어준다.
+        const fileArr = document.querySelectorAll(".attachList button")
+
+        console.log(fileArr)
+
+        if(fileArr && fileArr.length > 0) {
+
+            let str = ''
+
+            for (const btn of fileArr) {
+                const ano = btn.getAttribute("data-ano")
+                const fullName = btn.getAttribute("data-fullname")
+
+                str += `<input type='hidden' name='anos' value='\${ano}'> `
+                str += `<input type='hidden' name='fullNames' value='\${fullName}'> `
+            }//end for
+            document.querySelector(".deleteImages").innerHTML += str
+
+        }//end if
+
         actionForm.action = `/board/remove/\${bno}`
         actionForm.method = 'post'
         actionForm.submit()
+
+    }, false)
+
+    document.querySelector(".attachList").addEventListener("click", (e) => {
+
+        const target = e.target
+
+        if(target.tagName != 'BUTTON') {
+            return
+        }
+
+        const ano = target.getAttribute("data-ano")
+        const fullName = target.getAttribute("data-fullname")
+
+        if(ano && fullName) {
+
+            let str = ''
+
+            str += `<input type='hidden' name='anos' value='\${ano}'> `
+            str += `<input type='hidden' name='fullNames' value='\${fullName}'> `
+
+            console.log("ano ", ano, "fullName ", fullName)
+            target.closest("div").remove()
+
+            document.querySelector(".deleteImages").innerHTML += str
+        }
+
+
 
     }, false)
 

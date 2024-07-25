@@ -5,12 +5,16 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.ex00.domain.AttachVO;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.domain.PageDTO;
 import org.zerock.ex00.service.BoardService;
+import org.zerock.ex00.util.UpDownUtil;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -18,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
+
+    private final UpDownUtil upDownUtil;
 
     private final BoardService boardService;
 
@@ -46,9 +52,19 @@ public class BoardController {
     }
 
     @PostMapping("/register")
-    public String register(BoardVO boardVO, RedirectAttributes rttr) {
+    public String register(
+            BoardVO boardVO,
+            @RequestParam(value = "files", required = false ) MultipartFile[] files,
+            RedirectAttributes rttr) {
 
         log.info("boardVO: " + boardVO);
+
+        log.info("-------------------------");
+        log.info(Arrays.toString(files));
+
+        List<AttachVO> attachVOList = upDownUtil.upload(files);
+
+        boardVO.setAttachVOList(attachVOList);
 
         Long bno = boardService.register(boardVO);
 
@@ -117,16 +133,21 @@ public class BoardController {
     @PostMapping("/remove/{bno}")
     public String remove(
             @PathVariable(name="bno") Long bno,
+            @RequestParam(value = "anos", required = false ) Long[] anos,
+            @RequestParam(value = "fullNames", required = false ) String[] fullNames,
             RedirectAttributes rttr) {
 
         BoardVO boardVO = new BoardVO();
         boardVO.setBno(bno);
         boardVO.setTitle("해당 글은 삭제되었습니다");
         boardVO.setContent("해당 글은 삭제되었습니다");
+        boardVO.setDelFlag(true);
 
         log.info("boardVO: " + boardVO);
 
-        boardService.modify(boardVO);
+        upDownUtil.deleteFiles(fullNames);
+
+        boardService.modify(boardVO, anos);
 
         rttr.addFlashAttribute("result", boardVO.getBno());
 
@@ -137,13 +158,26 @@ public class BoardController {
     public String modify(
             @PathVariable(name="bno") Long bno,
             BoardVO boardVO,
+            @RequestParam(value = "files", required = false ) MultipartFile[] files,
+            @RequestParam(value = "anos", required = false ) Long[] anos,
+            @RequestParam(value = "fullNames", required = false ) String[] fullNames,
             RedirectAttributes rttr) {
 
         boardVO.setBno(bno);
 
+        List<AttachVO> attachVOList = upDownUtil.upload(files);
+
+        if(attachVOList != null && attachVOList.size() > 0) {
+            boardVO.setAttachVOList(attachVOList);
+        }
+        boardVO.setAttachVOList(attachVOList);
+
         log.info("boardVO: " + boardVO);
 
-        boardService.modify(boardVO);
+        boardService.modify(boardVO, anos);
+
+        // 삭제할 파일들을 삭제
+        upDownUtil.deleteFiles(fullNames);
 
         rttr.addFlashAttribute("result", boardVO.getBno());
 

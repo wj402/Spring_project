@@ -17,28 +17,34 @@
     </div>
     <div class="card-body">
 
-        <form action="/board/register" method="post">
-            <div class="input-group input-group-lg">
+        <form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
+            <div class="form-group input-group input-group-lg">
                 <div>
                     <span class="input-group-text">Title</span>
                 </div>
                 <input type="text" name="title" class="form-control" >
             </div>
-            <div class="input-group input-group-lg">
+            <div class="form-group input-group input-group-lg">
                 <div>
                     <span class="input-group-text">Content</span>
                 </div>
-                <input type="text" name="content" class="form-control" >
+                <textarea type="text" name="content" class="form-control" rows="3" ></textarea>
             </div>
-            <div class="input-group input-group-lg">
+            <div class="form-group input-group input-group-lg">
                 <div>
                  <span class="input-group-text">Writer</span>
                 </div>
                 <input type="text" name="writer" class="form-control" >
             </div>
+            <div class="form-group input-group input-group-lg">
+                <div>
+                    <span class="input-group-text">Files</span>
+                </div>
+                <input type="file" name="files" class="form-control" multiple>
+            </div>
 
             <div class="input-group input-group-lg">
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                <button type="submit" class="btn btn-primary submitBtn">SUBMIT</button>
             </div>
         </form>
     </div>
@@ -48,6 +54,31 @@
 
 <script>
 
+    const formObj = document.querySelector("#registerForm")
+
+    document.querySelector(".submitBtn").addEventListener("click", e => {
+        e.stopPropagation()
+        e.preventDefault()
+
+        const fileReg = /(.*?)\.(gif|png|jpg|jpeg|bmp)$/;
+
+        // file suffix check 파일 확장자 체크
+        const fileInput = document.querySelector("input[name='files']")
+
+        const fileArr = fileInput.files
+
+        if(fileArr && fileArr.length > 0) {
+            for (const file of fileArr) {
+                if(!file.name.match(fileReg)) {
+                    alert("첨부파일 확장자 위반")
+                    return;
+                }
+            }
+        }
+
+        formObj.submit()
+
+    }, false)
 </script>
 
 <%@include file="../includes/end.jsp"%>

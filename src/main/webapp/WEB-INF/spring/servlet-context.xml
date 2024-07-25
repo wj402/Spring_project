@@ -10,10 +10,15 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <bean id="multipartResolver"
+            class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+
     <context:component-scan base-package="org.zerock.ex00.controller" />
+    <context:component-scan base-package="org.zerock.ex00.util" />
 
     <mvc:annotation-driven/>
 
     <mvc:resources mapping="/resources/**" location="classpath:/static/" />
+    <mvc:resources mapping="/files/**" location="file:///C:/upload/" />
 
 </beans>
