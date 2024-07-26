@@ -65,4 +65,12 @@ public class MemberTests {
         }// end for
     }
 
+
+    @Test
+    public void testSelect() {
+        String uid = "user99";
+
+        log.info(memberMapper.select(uid));
+    }
+
 }

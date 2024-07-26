@@ -1,6 +1,14 @@
 package org.zerock.ex00.domain;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 create table tbl_member (
@@ -14,7 +22,7 @@ create table tbl_member (
  */
 
 @Data
-public class MemberVO {
+public class MemberVO implements UserDetails {
 
     private String uid;
 
@@ -25,4 +33,51 @@ public class MemberVO {
     private String email;
 
     private java.util.List<MemberAuthVO> authVOList;
+
+    private LocalDateTime regDate;
+    private LocalDateTime updateDate;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(authVOList == null || authVOList.isEmpty()) {
+            return null;
+        }
+
+        return authVOList.stream()
+                .map( authVO -> new SimpleGrantedAuthority(authVO.getRoleName()))
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public String getPassword() {
+        return this.upw;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.uid;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
 }

@@ -8,4 +8,6 @@ public interface MemberMapper {
     void insert(MemberVO membervo);
 
     void insertAuth(MemberAuthVO authVO);
+
+    MemberVO select(String uid);
 }
