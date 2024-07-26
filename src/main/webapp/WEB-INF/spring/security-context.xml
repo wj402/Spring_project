@@ -13,11 +13,16 @@
     <bean id="customLoginSuccessHandler"
             class="org.zerock.ex00.security.handler.CustomLoginSuccessHandler" />
 
+    <bean id="customLogoutHandler"
+            class="org.zerock.ex00.security.handler.CustomLogoutHandler" />
+
     <security:http>
         <security:form-login
                 login-page="/member/login"
                 authentication-success-handler-ref="customLoginSuccessHandler"
         />
+
+        <security:logout success-handler-ref="customLogoutHandler" />
 
         <security:csrf disabled="true" />
 
