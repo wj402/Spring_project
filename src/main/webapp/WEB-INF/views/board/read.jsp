@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@include file="../includes/header.jsp"%>
 
@@ -49,7 +50,15 @@
         </div>
         <div class="input-group input-group-lg">
             <button type="submit" class="btn btn-info btnList">LIST</button>
-            <button type="submit" class="btn btn-warning btnModify">MODIFY</button>
+
+            <sec:authentication property="principal" var="secInfo" />
+
+<%--            <h5>${secInfo.uid}</h5>--%>
+<%--            <h5>${vo.writer}</h5>--%>
+
+            <c:if test="${secInfo.uid == vo.writer}">
+                <button type="submit" class="btn btn-warning btnModify">MODIFY</button>
+            </c:if>
         </div>
     </div>
 
@@ -70,25 +79,34 @@
 </div>
 
 <div class="card shadow mb-4">
-    <ul class="list-group replyList">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            A list item
-            <span class="badge bg-primary rounded-pill">14</span>
-        </li>
-    </ul>
-    <ul class="pagination">
-        <li class="page-item">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-        </li>
-    </ul>
+    <div class="card-header py-3">
+        <button class="btn btn-info addReplyBtn">Add Reply</button>
+    </div>
+    <div class="card-body ">
+        <div>
+            <ul class="list-group replyList">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cras justo odio
+                    <span class="badge badge-primary badge-pill">14</span>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-3" >
+            <ul class="pagination">
+                <li class="page-item ">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <div class="modal" id="replyModal" tabindex="-1" role="dialog">
@@ -149,10 +167,14 @@
         actionForm.submit()
     }, false)
 
-    document.querySelector(".btnModify").addEventListener("click",(e) => {
-        actionForm.setAttribute("action", `/board/modify/\${bno}`)
-        actionForm.submit()
-    }, false)
+    const modifyBtn = document.querySelector(".btnModify")
+    if(modifyBtn) {
+        document.querySelector(".btnModify").addEventListener("click",(e) => {
+            actionForm.setAttribute("action", `/board/modify/\${bno}`)
+            actionForm.submit()
+        }, false)
+    }
+
 
 </script>
 
@@ -161,6 +183,8 @@
     const boardBno = ${vo.bno}
     const replyUL = document.querySelector(".replyList")
     const pageUL = document.querySelector(".pagination")
+
+    const currentUser = '<sec:authentication property="principal.Username"/>'
 
     const getList = async(pageParam, amountParam ) => {
         const pageNum = pageParam || 1
@@ -265,6 +289,16 @@
         getReply(currentRno).then( result => {
             replyTextInput.value = result.replyText
             replyerInput.value =  result.replyer
+
+            //result.replyer와 currentUser가 일치하지 않는다면
+            const delBtn = document.querySelector("#replyDelBtn")
+            const modBtn = document.querySelector("#replyModBtn")
+
+            const noneValue = result.replyer === currentUser ? '' : 'd-none'
+
+            // modBtn.setAttribute('class',`btn btn-warning \${noneValue}`)
+            // delBtn.setAttribute('class',`btn btn-danger \${noneValue}`)
+
             replyAddModal.show()
         } )
 
@@ -321,6 +355,12 @@
             alert('댓글이 삭제되었습니다')
             replyAddModal.hide()
             getList()
+        }).catch(ex => {
+
+            alert("댓글 삭제는 불가능합니다.")
+            replyAddModal.hide()
+            getList()
+
         })
     }, false)
 
@@ -337,7 +377,20 @@
             alert("댓글이 수정되었습니다.")
             replyAddModal.hide()
             getList(currentPage)
+        }).catch(ex => {
+
+            alert("댓글 수정이 불가능합니다.")
+            replyAddModal.hide()
+            getList(currentPage)
+
         })
+
+    }, false)
+
+    document.querySelector(".addReplyBtn").addEventListener("click", e => {
+        replyerInput.value = currentUser
+        replyerInput.setAttribute("readonly", true)
+        replyAddModal.show()
 
     }, false)
 

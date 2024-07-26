@@ -2,16 +2,15 @@ package org.zerock.ex00.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.ex00.domain.AttachVO;
-import org.zerock.ex00.domain.BoardVO;
-import org.zerock.ex00.domain.Criteria;
-import org.zerock.ex00.domain.PageDTO;
+import org.zerock.ex00.domain.*;
 import org.zerock.ex00.service.BoardService;
 import org.zerock.ex00.util.UpDownUtil;
 
@@ -76,52 +75,14 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-//    @GetMapping("/read/{bno}")
-//    public String read(
-//            @PathVariable(name = "bno") Long bno, Model model) {
-//
-//        log.info("bno: " + bno);
-//
-//        BoardVO boardVO = boardService.get(bno);
-//
-//        log.info("boardVO: " + boardVO);
-//
-//        model.addAttribute("vo", boardVO);
-//
-//        return "board/read";
-//
-//    }
-//
-//    @GetMapping("/modify/{bno}")
-//    public String modify(
-//            @PathVariable(name = "bno") Long bno, Model model) {
-//
-//        log.info("bno: " + bno);
-//
-//        BoardVO boardVO = boardService.get(bno);
-//
-//        log.info("boardVO: " + boardVO);
-//
-//        model.addAttribute("vo", boardVO);
-//
-//        return "board/modify";
-//
-//    }
-
-//    @GetMapping({"/read/{bno}", "/modify/{bno}"})
-    @GetMapping({"/{job}/{bno}"})
-    public String read(
-            @PathVariable(name = "job") String job,
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/read/{bno}")
+    public String readGET(
             @PathVariable(name = "bno") Long bno,
-            @ModelAttribute("cri") Criteria cri,
+            @ModelAttribute("cri") Criteria criteria,
             Model model) {
 
-        log.info("job: " + job);
         log.info("bno: " + bno);
-
-        if( !(job.equals("read") || job.equals("modify")) ) {
-            throw new RuntimeException("Bad Request job");
-        }
 
         BoardVO boardVO = boardService.get(bno);
 
@@ -129,19 +90,87 @@ public class BoardController {
 
         model.addAttribute("vo", boardVO);
 
-        return "board/" +job;
+        return "/board/read";
 
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{bno}")
+    public String modifyGET(
+            @PathVariable(name = "bno") Long bno,
+            @ModelAttribute("cri") Criteria criteria,
+            @AuthenticationPrincipal MemberVO memberVO,
+            Model model) {
+
+
+        BoardVO boardVO = boardService.get(bno);
+
+        log.info("boardVO: " + boardVO);
+
+        log.info("==========================");
+        log.info(memberVO);
+
+        if(memberVO != null) {
+            if( !memberVO.getUid().equals(boardVO.getWriter())) {
+                throw new AccessDeniedException("NOT_OWNER");
+            }
+        }
+
+        model.addAttribute("vo", boardVO);
+
+        return "/board/modify";
+
+    }
+
+//    @GetMapping({"/read/{bno}", "/modify/{bno}"})
+
+//    @GetMapping({"/{job}/{bno}"})
+//    public String read(
+//            @PathVariable(name = "job") String job,
+//            @PathVariable(name = "bno") Long bno,
+//            @ModelAttribute("cri") Criteria cri,
+//            Model model) {
+//
+//        log.info("job: " + job);
+//        log.info("bno: " + bno);
+//
+//        if( !(job.equals("read") || job.equals("modify")) ) {
+//            throw new RuntimeException("Bad Request job");
+//        }
+//
+//        BoardVO boardVO = boardService.get(bno);
+//
+//        log.info("boardVO: " + boardVO);
+//
+//        model.addAttribute("vo", boardVO);
+//
+//        return "board/" +job;
+//
+//    }
+
 
     @PostMapping("/remove/{bno}")
     public String remove(
             @PathVariable(name="bno") Long bno,
             @RequestParam(value = "anos", required = false ) Long[] anos,
             @RequestParam(value = "fullNames", required = false ) String[] fullNames,
+            @AuthenticationPrincipal MemberVO memberVO,
             RedirectAttributes rttr) {
 
-        BoardVO boardVO = new BoardVO();
-        boardVO.setBno(bno);
+        // 기존의 게시물을 조회해서 비교하고...
+        BoardVO boardVO = boardService.get(bno);
+
+        if(boardVO == null) {
+            return "/board/list";
+        }
+
+        if(!boardVO.getWriter().equals(memberVO.getUid())) {
+            throw new AccessDeniedException("NOT_OWNER");
+        }
+
+        // 비교가 끝나면 변경해서 저장
+
+     boardVO.setBno(bno);
         boardVO.setTitle("해당 글은 삭제되었습니다");
         boardVO.setContent("해당 글은 삭제되었습니다");
         boardVO.setDelFlag(true);
@@ -157,6 +186,7 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    @PreAuthorize("principal.username == #boardVO.writer")
     @PostMapping("/modify/{bno}")
     public String modify(
             @PathVariable(name="bno") Long bno,
