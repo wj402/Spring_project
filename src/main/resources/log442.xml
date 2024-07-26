@@ -4,7 +4,7 @@
     <!-- Appender, Layout 설정 -->
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout/>
+            <PatternLayout pattern="%d %5p [%c] %m%n" />
         </Console>
         <File name="file" fileName="./logs/file/sample.log" append="false">
             <PatternLayout pattern="%d %5p [%c] %m%n"/>
@@ -13,11 +13,14 @@
 
     <!-- Logger 설정 -->
     <Loggers>
-        <Logger name="com.zaxxer" level="DEBUG" additivity="false">
+        <Logger name="com.zaxxer" level="INFO" additivity="false">
             <AppenderRef ref="console"/>
         </Logger>
-        <Logger name="org.zerock" level="TRACE" additivity="false">
+        <Logger name="org.zerock" level="INFO" additivity="false">
             <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.springframework.security" level="TRACE" additivity="false">
+            <AppenderRef ref="console" />
         </Logger>
         <Root level="INFO">
             <AppenderRef ref="console"/>

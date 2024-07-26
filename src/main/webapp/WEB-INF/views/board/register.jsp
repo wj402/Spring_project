@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@include file="../includes/header.jsp"%>
 
@@ -19,25 +20,29 @@
 
         <form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
             <div class="form-group input-group input-group-lg">
-                <div>
+                <div class="input-group-prepend">
                     <span class="input-group-text">Title</span>
                 </div>
                 <input type="text" name="title" class="form-control" >
             </div>
             <div class="form-group input-group input-group-lg">
-                <div>
+                <div class="input-group-prepend">
                     <span class="input-group-text">Content</span>
                 </div>
                 <textarea type="text" name="content" class="form-control" rows="3" ></textarea>
             </div>
+
             <div class="form-group input-group input-group-lg">
-                <div>
+                <div class="input-group-prepend">
                  <span class="input-group-text">Writer</span>
                 </div>
-                <input type="text" name="writer" class="form-control" >
+                <input type="text" name="writer" class="form-control"
+                value="<sec:authentication property="principal.Username"/>" readonly >
+
             </div>
+
             <div class="form-group input-group input-group-lg">
-                <div>
+                <div class="input-group-prepend">
                     <span class="input-group-text">Files</span>
                 </div>
                 <input type="file" name="files" class="form-control" multiple>
