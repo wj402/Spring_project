@@ -29,5 +29,13 @@
     <sec:authentication property="principal.uname" />
   </div>
 
+  <div>
+    <sec:authentication property="principal.uid" />
+  </div>
+
+  <div>
+    <sec:authentication property="principal.uname" />
+  </div>
+
   </body>
 </html>
