@@ -18,23 +18,19 @@
   <h1>admin</h1>
 
   <div>
-    <sec:authentication property="principal" />
+    <sec:authentication property="principal"/>
   </div>
-
   <div>
-    <sec:authentication property="principal.email" />
+    <sec:authentication property="principal.email"/>
   </div>
-
   <div>
-    <sec:authentication property="principal.uname" />
+    <sec:authentication property="principal.uname"/>
   </div>
-
   <div>
-    <sec:authentication property="principal.uid" />
+    <sec:authentication property="principal.uid"/>
   </div>
-
   <div>
-    <sec:authentication property="principal.uname" />
+    <sec:authentication property="principal.uname"/>
   </div>
 
   </body>

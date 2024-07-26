@@ -3,12 +3,17 @@ package org.zerock.ex00.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.ex00.domain.Criteria;
+import org.zerock.ex00.domain.MemberVO;
 import org.zerock.ex00.domain.PageDTO;
 import org.zerock.ex00.domain.ReplyVO;
 import org.zerock.ex00.service.ReplyService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +21,26 @@ import java.util.Map;
 @RequestMapping("/reply")
 @RequiredArgsConstructor
 @Log4j2
+@PreAuthorize("isAuthenticated()")
 public class ReplyController {
 
     private final ReplyService replyService;
 
     @PostMapping("/register")
-    public Map<String, Long> register( @RequestBody ReplyVO replyVO) {
+    public ResponseEntity<Map<String, Long>> register(
+            @RequestBody ReplyVO replyVO,
+            @AuthenticationPrincipal MemberVO memberVO
+            ) {
+
+        log.info(memberVO);
+        log.info(replyVO);
+
+        if(memberVO == null || ! memberVO.getUid().equals(replyVO.getReplyer())){
+
+            log.info("----------------ERROR--------------------");
+
+            return ResponseEntity.badRequest().build();
+        }
 
         log.info("----------------");
         log.info(replyVO);
@@ -30,7 +49,7 @@ public class ReplyController {
 
         int replyCount = replyService.getReplyCountOfBoard(replyVO.getBno());
 
-        return Map.of("RNO", rno, "COUNT", (long) replyCount);
+        return ResponseEntity.ok(Map.of("RNO", rno, "COUNT", (long) replyCount));
     }
 
     @GetMapping("{rno}")
@@ -39,27 +58,81 @@ public class ReplyController {
     }
 
     @DeleteMapping("/{rno}")
-    public Map<String, Boolean> delete(@PathVariable("rno")Long rno) {
+    public ResponseEntity<Map<String, Boolean>> delete(
+            @PathVariable("rno")Long rno,
+            @AuthenticationPrincipal MemberVO memberVO
+    ) {
+
+        try {
+            checkAuthor(rno, memberVO);
+        }catch(Exception e) {
+            log.error("==========================");
+            log.error(e.getMessage());
+            return ResponseEntity
+                    .status(403)
+                    .build();
+        }
 
         boolean result = replyService.remove(rno);
 
-        return Map.of("Result", result);
+        return ResponseEntity.ok(Map.of("Result", result));
     }
 
     @PutMapping("/{rno}")
-    public Map<String, Boolean> modify(
+    public ResponseEntity<Map<String, Boolean>> modify(
             @PathVariable("rno")Long rno,
-            @RequestBody ReplyVO replyVO) {
+            @RequestBody ReplyVO replyVO,
+            @AuthenticationPrincipal MemberVO memberVO
+            ) {
+
+        try {
+            checkAuthor(rno, memberVO);
+        }catch (Exception e){
+            log.error("=========================");
+            log.error(e.getMessage());
+            return ResponseEntity
+                    .status(403)
+                    .build();
+        }
 
        replyVO.setRno(rno);
 
        boolean result = replyService.modify(replyVO);
 
-       return Map.of("Result", result);
+       return ResponseEntity.ok(Map.of("Result", result));
     }
 
+    private void checkAuthor(Long rno, MemberVO memberVO) {
+        log.info("===========CHECK AUTHOR==========");
+
+        log.info("MEMBERVO");
+        log.info(memberVO);
+
+        if(rno == null || memberVO == null) {
+            throw new RuntimeException("NOT EXIST");
+        }
+
+        ReplyVO replyVO = replyService.get(rno);
+
+        log.info("REPLYVO");
+        log.info(replyVO);
+
+        if( ! replyVO.getReplyer().equals(memberVO.getUid())) {
+            throw new RuntimeException("NOT PERMITTED");
+        }//
+    }
+
+
     @GetMapping("/list/{bno}")
-    public Map<String, Object> getListOfBoard(@PathVariable("bno") Long bno, Criteria criteria) {
+    public ResponseEntity<Map<String, Object>> getListOfBoard(
+            @PathVariable("bno") Long bno,
+            @AuthenticationPrincipal MemberVO memberVO,
+            Criteria criteria) {
+
+        if(memberVO == null) {
+
+            return ResponseEntity.status(403).build();
+        }
 
         log.info("bno: " + bno);
         log.info(criteria);
@@ -70,7 +143,11 @@ public class ReplyController {
 
         PageDTO pageDTO = new PageDTO(criteria, total);
 
-        return Map.of("replyList", replyList, "pageDTO", pageDTO);
+        Map<String, Object> map = new HashMap<>();
+        map.put("replyList", replyList);
+        map.put("pageDTO", pageDTO);
+
+        return ResponseEntity.ok(map);
 
     }
 

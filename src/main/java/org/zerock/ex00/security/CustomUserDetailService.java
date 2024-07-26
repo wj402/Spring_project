@@ -3,15 +3,12 @@ package org.zerock.ex00.security;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.zerock.ex00.domain.MemberVO;
 import org.zerock.ex00.mappers.MemberMapper;
-
-import java.util.Collections;
 
 @Log4j2
 @Setter
@@ -36,11 +33,7 @@ public class CustomUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        // UserDetails 객체를 생성하여 반환
-        return new org.springframework.security.core.userdetails.User(
-                memberVO.getUsername(),
-                memberVO.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
-        );
+        // MemberVO 객체를 반환
+        return memberVO;
     }
 }

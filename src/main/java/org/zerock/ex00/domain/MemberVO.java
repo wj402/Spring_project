@@ -66,7 +66,7 @@ public class MemberVO implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
