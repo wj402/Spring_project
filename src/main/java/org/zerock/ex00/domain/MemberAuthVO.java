@@ -24,4 +24,5 @@ public class MemberAuthVO {
         this.roleName = roleName;
         this.uid = uid;
     }
+
 }
