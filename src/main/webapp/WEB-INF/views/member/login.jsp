@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +35,7 @@
 
 <body class="bg-gradient-primary">
 
-<div class="container">
+<div class="container" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -43,7 +46,10 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                            <img src="${path}/resources/img/hi.jpg" alt="이미지"
+                                 style="width: 460px; height: 460px; background-size: cover; text-align: center" />
+                        </div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
@@ -53,30 +59,29 @@
                                 <div class="form-group">
                                         <input type="text" name="username" class="form-control form-control-user"
                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter ...">
+                                               placeholder="아이디를 입력해주세요.">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" name="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password">
+                                               id="exampleInputPassword" placeholder="비밀번호를 입력해주세요.">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" name="remember-me" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+                                            <label class="custom-control-label" for="customCheck">아이디 저장</label>
                                         </div>
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block">
-                                        Login
+                                        로그인
                                     </button>
                                     <hr>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    <a class="small" href="forgot-password.html">비밀번호를 잊어버리셨나요?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="register.html">Create an Account!</a>
+                                    <a class="small" href="register.html">회원가입을 하세요!</a>
                                 </div>
                             </div>
                         </div>

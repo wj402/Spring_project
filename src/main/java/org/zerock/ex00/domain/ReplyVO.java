@@ -19,8 +19,8 @@ public class ReplyVO {
     private String replyText;
     private String replyer;
 
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime regDate;
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime updateDate;
 }
