@@ -139,7 +139,7 @@ public class ReplyController {
 
         List<ReplyVO> replyList = replyService.getListWithBno(criteria, bno);
 
-        int total = replyService.getTotalWithBno(criteria, bno);
+        int total = replyService.getTotalWithBno(criteria, bno); 
 
         PageDTO pageDTO = new PageDTO(criteria, total);
 
