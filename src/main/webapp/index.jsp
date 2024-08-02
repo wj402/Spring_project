@@ -34,9 +34,11 @@
   </div>
 </div>
 <header class="fixed">
-  <h1 class="logo">
-    <img src="${path}/resources/img/logo.png" alt="로고이미지">
-  </h1>
+  <a href="http://localhost:8080">
+    <h1 class="logo">
+      <img src="${path}/resources/img/logo.png" alt="로고이미지">
+    </h1>
+  </a>
   <div class="logo_nav fixed">
     <ul class="fixed">
       <li><a href="#">강의</a></li>
@@ -446,6 +448,15 @@
 <%--    <img src="../static/img/img02.png" alt="img02">--%>
 <%--  </div>--%>
 <%--</article>--%>
+
+<div class="bg3">
+  <div class="bg3_01">
+    <img src="${path}/resources/img/section2_bg1.png" alt="배경이미지" />
+  </div>
+  <div class="bg3_02">
+    <img src="${path}/resources/img/section2_bg2.png" alt="배경이미지" />
+  </div>
+</div>
 
 <article class="channel fixed video">
   <div class="video_container">

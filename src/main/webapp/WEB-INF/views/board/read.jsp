@@ -6,50 +6,51 @@
 <%@include file="../includes/header.jsp"%>
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Read</h1>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank"
-                                                               href="https://datatables.net">official DataTables documentation</a>.</p>
+<h1 class="h3 mb-2 text-gray-800">공지사항 읽기</h1>
+<p class="mb-4">교육과정과 교육정책 전반의 정보를
+    통합 제공하고, 협업 소통을 지원하는
+    교육정보 통합 지원 서비스입니다 <a target="_blank"
+                                                               href="https://localhost:8080t"> &nbsp;&nbsp; 학습시스템 홈페이지</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Board Read</h6>
+        <h6 class="m-0 font-weight-bold text-primary">게시판 읽기</h6>
     </div>
     <div class="card-body">
 
         <div class="input-group input-group-lg">
             <div class="input-group-prepend">
-                <span class="input-group-text">Bno</span>
+                <span class="input-group-text">번호</span>
             </div>
             <input type="text" name="bno" class="form-control" value="<c:out value="${vo.bno}"/>" readonly >
         </div>
         <div class="input-group input-group-lg">
             <div class="input-group-prepend">
-                <span class="input-group-text">Title</span>
+                <span class="input-group-text">제목</span>
             </div>
             <input type="text" name="title" class="form-control" value="<c:out value="${vo.title}"/>" readonly>
         </div>
         <div class="input-group input-group-lg">
             <div class="input-group-prepend">
-                <span class="input-group-text">Content</span>
+                <span class="input-group-text">내용</span>
             </div>
             <input type="text" name="content" class="form-control"  value="<c:out value="${vo.content}"/>" readonly>
         </div>
         <div class="input-group input-group-lg">
             <div class="input-group-prepend">
-                <span class="input-group-text">Writer</span>
+                <span class="input-group-text">작성자</span>
             </div>
             <input type="text" name="writer" class="form-control" value="<c:out value="${vo.writer}"/>" readonly>
         </div>
         <div class="input-group input-group-lg">
             <div class="input-group-prepend">
-                <span class="input-group-text">RegDate</span>
+                <span class="input-group-text">날짜/시간</span>
             </div>
             <input type="text" name="regDate" class="form-control" value="<c:out value="${vo.regDate}"/>" readonly>
         </div>
         <div class="input-group input-group-lg">
-            <button type="submit" class="btn btn-info btnList">LIST</button>
+            <button type="submit" class="btn btn-info btnList">목록</button>
 
             <sec:authentication property="principal" var="secInfo" />
 
@@ -57,7 +58,7 @@
 <%--            <h5>${vo.writer}</h5>--%>
 
             <c:if test="${secInfo.uid == vo.writer}">
-                <button type="submit" class="btn btn-warning btnModify">MODIFY</button>
+                <button type="submit" class="btn btn-warning btnModify">수정</button>
             </c:if>
         </div>
     </div>
@@ -80,7 +81,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <button class="btn btn-info addReplyBtn">Add Reply</button>
+        <button class="btn btn-info addReplyBtn">댓글 작성하기</button>
     </div>
     <div class="card-body ">
         <div>
@@ -94,7 +95,7 @@
         <div class="mt-3" >
             <ul class="pagination">
                 <li class="page-item ">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    <a class="page-link" href="#" tabindex="-1">이전</a>
                 </li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item active">
@@ -102,7 +103,7 @@
                 </li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="#">다음</a>
                 </li>
             </ul>
         </div>
@@ -121,22 +122,22 @@
             <div class="modal-body ">
                 <div class="input-group input-group-lg">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Reply Text</span>
+                        <span class="input-group-text">댓글</span>
                     </div>
                     <input type="text" name="replyText" class="form-control" >
                 </div>
                 <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">Replyer</span>
+                        <span class="input-group-text">댓글자</span>
                     </div>
                     <input type="text" name="replyer" class="form-control" >
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="replyModBtn" type="button" class="btn btn-warning">Modify</button>
-                <button id="replyDelBtn" type="button" class="btn btn-danger">Delete</button>
-                <button id="replyRegBtn" type="button" class="btn btn-primary">Register</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                <button id="replyModBtn" type="button" class="btn btn-warning">수정</button>
+                <button id="replyDelBtn" type="button" class="btn btn-danger">삭제</button>
+                <button id="replyRegBtn" type="button" class="btn btn-primary">쓰기</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
         </div>
     </div>

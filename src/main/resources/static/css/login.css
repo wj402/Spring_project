@@ -1,0 +1,81 @@
+body {
+    background-color: #ecf9ff;
+    overflow: hidden;
+}
+
+ol, ul, li {
+    list-style:none;
+}
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300&display=swap');
+
+html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, em, img, ol, ul, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, strong, header, nav, hgroup, aside, section, article, footer, audio, video, a, input, select, textarea, main {
+    margin:0;
+    padding:0;
+    border:none;
+    outline:none;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    line-height:1;
+}
+
+ol, ul, li {
+    list-style:none;
+}
+img {
+    vertical-align:top;
+}
+a {
+    text-decoration:none;
+}
+input, textarea {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size:12px;
+    vertical-align:top;
+    border:1px solid #757575;
+    appearance:none; /* 브라우저마다 다른 디자인이 적용되므로 기본 디자인을 없애줌. */
+}
+
+.fixed:after {
+    content:'';
+    display:block;
+    clear:both;
+}
+
+.hide {
+    height:0;
+    text-indent:-9999px;
+    visibility:hidden;
+    overflow:hidden;
+}
+
+.bg {
+    width: 100%;
+    position: absolute;
+}
+
+.bg .bg_01 {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bg .bg_02 {
+    position: absolute;
+    top: 0;
+    right: -100px;
+}
+
+.bg .bg_03 {
+    position: absolute;
+    top: 500px;
+    right: -50px;
+}
+
+.bg .bg_04 {
+    position: absolute;
+    top: 700px;
+    left: 0;
+}

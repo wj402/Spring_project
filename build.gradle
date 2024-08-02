@@ -1,7 +1,10 @@
 plugins {
   id 'java'
   id 'war'
-  id 'org.jetbrains.kotlin.jvm'
+  id 'org.jetbrains.kotlin.jvm' version '1.9.0'
+  id 'org.springframework.boot' version '2.5.1'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE' // Spring Dependency Management 플러그인 추가
+
 }
 
 

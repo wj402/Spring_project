@@ -7,19 +7,23 @@
 <%@include file="../includes/header.jsp"%>
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank"
-                                                               href="https://datatables.net">official DataTables documentation</a>.</p>
+<h1 class="h3 mb-2 text-gray-800">공지사항 목록</h1>
+<p class="mb-4">교육과정과 교육정책 전반의 정보를
+    통합 제공하고, 협업 소통을 지원하는
+    교육정보 통합 지원 서비스입니다 <a target="_blank"
+                                                               href="https://localhost:8080"> &nbsp;&nbsp; 학습시스템 홈페이지</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <div class="m-0 font-weight-bold text-primary">DataTables Tables</div>
+        <div class="m-0 font-weight-bold text-primary">
+            <p>학습시스템 공지사항</p>
+            <span class="text-dark">학습시스템 공지사항은 20년이 넘은 공공 교육 정보 서비스입니다</span>
+        </div>
         <sec:authorize access="isAuthenticated()">
         <div class="float-right">
             <a href="/board/register">
-                <button class="btn btn-info">Register</button>
+                <button class="btn btn-info">글쓰기</button>
             </a>
         </div>
         </sec:authorize>
@@ -37,7 +41,7 @@
                 <option value="TCW" ${cri.typeStr == 'TCW' ? 'selected' : ''} >제목 OR 내용 OR 작성자</option>
             </select>
             <input type='text' name='keywordInput' value="<c:out value="${cri.keyword}" />" />
-            <button class="btn btn-default searchBtn">Search</button>
+            <button class="btn btn-default searchBtn" style="border: 1px solid #333; height: 30px; line-height: 20px;">검색</button>
         </div>
 
         <div class="table-responsive">
@@ -56,21 +60,21 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                    <th>Bno</th>
-                    <th>Title</th>
-                    <th>Writer</th>
-                    <th>RegDate</th>
-                    <th>UpdateDate</th>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>날짜/시간</th>
+                    <th>업데이트 시간</th>
                 </tr>
                 </thead>
-                <tbody class="tbody">
+                <tbody class="tbody" style="cursor: pointer; ">
                 <c:forEach var="board" items="${list}">
                     <tr data-bno="${board.bno}">
                         <td><c:out  value="${board.bno}"/></td>
                         <td><c:out  value="${board.title}"/></td>
                         <td><c:out  value="${board.writer}"/></td>
                         <td><c:out  value="${board.regDate}"/></td>
-                        <td><c:out  value="${board.updateDate}"/> date</td>
+                        <td><c:out  value="${board.updateDate}"/> 날짜</td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -80,7 +84,7 @@
 
                     <c:if test="${pageMaker.prev}">
                         <li class="page-item">
-                            <a class="page-link" href="${pageMaker.startPage -1}}" tabindex="-1" >Previous</a>
+                            <a class="page-link" href="${pageMaker.startPage -1}}" tabindex="-1" >이전</a>
                         </li>
                     </c:if>
 
@@ -92,7 +96,7 @@
 
                     <c:if test="${pageMaker.next}">
                         <li class="page-item">
-                            <a class="page-link" href="${pageMaker.endPage}}">Next</a>
+                            <a class="page-link" href="${pageMaker.endPage}}">다음</a>
                         </li>
                     </c:if>
                 </ul>
@@ -112,8 +116,8 @@
                 <p>Modal body text goes here.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기</button>
+                <button type="button" class="btn btn-primary">저장하기</button>
             </div>
         </div>
     </div>

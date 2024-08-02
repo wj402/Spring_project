@@ -6,35 +6,36 @@
 <%@include file="../includes/header.jsp"%>
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Register</h1>
-<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank"
-                                                               href="https://datatables.net">official DataTables documentation</a>.</p>
+<h1 class="h3 mb-2 text-gray-800">공지사항 작성</h1>
+<p class="mb-4">교육과정과 교육정책 전반의 정보를
+    통합 제공하고, 협업 소통을 지원하는
+    교육정보 통합 지원 서비스입니다 <a target="_blank"
+                         href="https://localhost:8080t"> &nbsp;&nbsp; 학습시스템 홈페이지</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Board Register</h6>
+        <h6 class="m-0 font-weight-bold text-primary">게시판 작성</h6>
     </div>
     <div class="card-body">
 
         <form id="registerForm" action="/board/register" method="post" enctype="multipart/form-data">
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Title</span>
+                    <span class="input-group-text">제목</span>
                 </div>
                 <input type="text" name="title" class="form-control" >
             </div>
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Content</span>
+                    <span class="input-group-text">내용</span>
                 </div>
                 <textarea type="text" name="content" class="form-control" rows="3" ></textarea>
             </div>
 
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
-                 <span class="input-group-text">Writer</span>
+                 <span class="input-group-text">작성자</span>
                 </div>
                 <input type="text" name="writer" class="form-control"
                 value="<sec:authentication property="principal.Username"/>" readonly >
@@ -43,13 +44,13 @@
 
             <div class="form-group input-group input-group-lg">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Files</span>
+                    <span class="input-group-text">파일</span>
                 </div>
                 <input type="file" name="files" class="form-control" multiple>
             </div>
 
             <div class="input-group input-group-lg">
-                <button type="submit" class="btn btn-primary submitBtn">SUBMIT</button>
+                <button type="submit" class="btn btn-primary submitBtn">보내기</button>
             </div>
         </form>
     </div>
