@@ -1,0 +1,97 @@
+body {
+    background-color: #fff;
+}
+
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300&display=swap');
+
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+ol, ul, li {
+    list-style:none;
+}
+img {
+    vertical-align:top;
+}
+a {
+    text-decoration:none;
+}
+
+
+.fixed:after {
+    content:'';
+    display:block;
+    clear:both;
+}
+
+.hide {
+    height:0;
+    text-indent:-9999px;
+    visibility:hidden;
+    overflow:hidden;
+}
+
+header {
+    width:100%;
+    margin:0 auto;
+    height:100px;
+    background-color: #fff;
+}
+
+header h1 {
+    float:left;
+}
+
+.logo {
+    margin:20px 0;
+    margin-left: 300px;
+}
+
+
+.logo a {
+    font-size:24px;
+    font-weight:bold;
+}
+
+.logo_nav {
+
+}
+
+.logo_nav ul {
+    float:right;
+    width: 50%;
+
+}
+
+.logo_nav li {
+    float:left;
+    margin:40px 80px 40px 0;
+    position:relative;
+
+}
+
+.logo_nav li a {
+    font-size:20px;
+    font-weight:bold;
+    color: #333;
+}
+
+.logo_nav li:nth-of-type(5):after {
+    content:'';
+    background-url : var('/resources/static/img/search.svg');
+    display:block;
+    font-size:22px;
+    color:#555;
+    position:absolute;
+    left:114px;
+    top:0;
+    cursor:pointer;
+}
+
+.container-fluid {
+    padding-top: 50px;
+    width: 100%;
+}
