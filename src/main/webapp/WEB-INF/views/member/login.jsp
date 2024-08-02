@@ -31,9 +31,25 @@
     <!-- Custom styles for this template-->
     <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/login.css">
+
 </head>
 
-<body class="bg-gradient-primary">
+<body>
+    <div class="bg">
+        <div class="bg_01">
+            <img src="${path}/resources/img/section1_bg1.png" alt="배경이미지" />
+        </div>
+        <div class="bg_02">
+            <img src="${path}/resources/img/section1_bg2.png" alt="배경이미지" />
+        </div>
+        <div class="bg_03">
+            <img src="${path}/resources/img/section3_bg1.png" alt="배경이미지" />
+        </div>
+        <div class="bg_04">
+            <img src="${path}/resources/img/section2_bg1.png" alt="배경이미지" />
+        </div>
+    </div>
 
 <div class="container" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
 
