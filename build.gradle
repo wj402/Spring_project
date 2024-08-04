@@ -3,6 +3,22 @@ plugins {
   id 'war'
 }
 
+jar {
+  manifest {
+    attributes(
+            'Main-Class': 'org.zerock.ex00.ex00-1.0-SNAPSHOT.jar' // 엔트리 포인트 클래스의 패키지와 클래스 이름으로 교체
+    )
+  }
+}
+
+war {
+  manifest {
+    attributes(
+            'Main-Class': 'org.zerock.ex00.ex00-1.0-SNAPSHOT.war' // WAR 파일에도 적용
+    )
+  }
+}
+
 group 'org.zerock'
 version '1.0-SNAPSHOT'
 

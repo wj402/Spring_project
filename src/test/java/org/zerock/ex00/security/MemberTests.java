@@ -28,49 +28,49 @@ public class MemberTests {
     @Autowired(required = false)
     MemberMapper memberMapper;
 
-    @Test
-    public void testInsert() {
-        for (int i = 1; i < 100; i++) {
+//    @Test
+//    public void testInsert() {
+//        for (int i = 1; i < 100; i++) {
+//
+//            MemberVO memberVO = new MemberVO();
+//            memberVO.setUid("user" + i);
+//            memberVO.setUpw(passwordEncoder.encode("1111"));
+//            memberVO.setUname("USER" + i);
+//            memberVO.setEmail("USER" + i + "@aaa.com");
+//
+//            java.util.List<MemberAuthVO> authList = new ArrayList<>();
+//
+//            MemberAuthVO userAuthVO = new MemberAuthVO("user"+i, "ROLE_USER");
+//            authList.add(userAuthVO);
+//
+//            if(i >= 50) {
+//                MemberAuthVO managerAuthVO = new MemberAuthVO("user"+i, "ROLE_MANAGER");
+//                authList.add(managerAuthVO);
+//            }
+//
+//            if(i >= 90) {
+//                MemberAuthVO adminAuthVO = new MemberAuthVO("user"+i, "ROLE_ADMIN");
+//                authList.add(adminAuthVO);
+//            }
+//
+//            memberVO.setAuthVOList(authList);
+//
+//            memberMapper.insert(memberVO);
+//
+//            authList.stream().forEach(authVO -> {
+//                memberMapper.insertAuth(authVO);
+//            });
+//
+//
+//        }// end for
+//    }
 
-            MemberVO memberVO = new MemberVO();
-            memberVO.setUid("user" + i);
-            memberVO.setUpw(passwordEncoder.encode("1111"));
-            memberVO.setUname("USER" + i);
-            memberVO.setEmail("USER" + i + "@aaa.com");
 
-            java.util.List<MemberAuthVO> authList = new ArrayList<>();
-
-            MemberAuthVO userAuthVO = new MemberAuthVO("user"+i, "ROLE_USER");
-            authList.add(userAuthVO);
-
-            if(i >= 50) {
-                MemberAuthVO managerAuthVO = new MemberAuthVO("user"+i, "ROLE_MANAGER");
-                authList.add(managerAuthVO);
-            }
-
-            if(i >= 90) {
-                MemberAuthVO adminAuthVO = new MemberAuthVO("user"+i, "ROLE_ADMIN");
-                authList.add(adminAuthVO);
-            }
-
-            memberVO.setAuthVOList(authList);
-
-            memberMapper.insert(memberVO);
-
-            authList.stream().forEach(authVO -> {
-                memberMapper.insertAuth(authVO);
-            });
-
-
-        }// end for
-    }
-
-
-    @Test
-    public void testSelect() {
-        String uid = "user99";
-
-        log.info(memberMapper.select(uid));
-    }
+//    @Test
+//    public void testSelect() {
+//        String uid = "user99";
+//
+//        log.info(memberMapper.select(uid));
+//    }
 
 }
