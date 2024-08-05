@@ -18,22 +18,22 @@ public class ReplyMapperTests {
     @Autowired(required = false)
     private ReplyMapper replyMapper;
 
-//    @Test
-//    public void testInsert() {
-//
-//        Long bno = 24L;
-//
-//        for (int i = 0; i < 10; i++) {
-//
-//            ReplyVO replyVO = ReplyVO.builder()
-//                    .bno(bno)
-//                    .replyText("Sample Reply..." + i)
-//                    .replyer("replyer1")
-//                    .build();
-//
-//            log .info(replyMapper.insert(replyVO));
-//        }
-//    }
+    @Test
+    public void testInsert() {
+
+        Long bno = 24L;
+
+        for (int i = 0; i < 10; i++) {
+
+            ReplyVO replyVO = ReplyVO.builder()
+                    .bno(bno)
+                    .replyText("Sample Reply..." + i)
+                    .replyer("replyer1")
+                    .build();
+
+            log .info(replyMapper.insert(replyVO));
+        }
+    }
 
     @Test
     public void testSelectOne() {
