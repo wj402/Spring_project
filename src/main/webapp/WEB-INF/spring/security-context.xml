@@ -36,6 +36,7 @@
 <!--        <security:intercept-url pattern="/sample/admin" access="hasRole({'ROLE_ADMIN'})" />-->
 
         <security:remember-me token-validity-seconds= "604800" data-source-ref="dataSource" />
+        <security:intercept-url pattern="/books/**" access="permitAll()" />
 
     </security:http>
 

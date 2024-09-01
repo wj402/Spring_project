@@ -24,9 +24,9 @@
     <update id="updateOne">
         update tbl_reply
         set
-        replyText = 'AAA' ,
+        replyText = #{replyText},
         updateDate = now()
-        where rno = #{rno};
+        where rno = #{rno}
     </update>
 
     <select id="getList" resultType="ReplyVO">
@@ -43,7 +43,6 @@
         from tbl_reply
         where bno = #{bno}
     </select>
-
 
 
 </mapper>

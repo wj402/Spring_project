@@ -37,10 +37,16 @@ public class MemberVO implements UserDetails {
     private LocalDateTime regDate;
     private LocalDateTime updateDate;
 
+    private Long id;
+
+
+
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(authVOList == null || authVOList.isEmpty()) {
-            return null;
+            return List.of();
         }
 
         return authVOList.stream()
@@ -79,5 +85,13 @@ public class MemberVO implements UserDetails {
         return true;
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

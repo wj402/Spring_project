@@ -42,6 +42,7 @@ public class ReplyService {
 
     public boolean modify(ReplyVO replyVO) {
 
+
         return replyMapper.updateOne(replyVO) == 1;
     }
 
@@ -56,4 +57,5 @@ public class ReplyService {
     public int getTotalWithBno(Criteria criteria, Long bno) {
         return replyMapper.getTotal(criteria, bno);
     }
+
 }

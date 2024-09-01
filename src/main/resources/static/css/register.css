@@ -1,0 +1,38 @@
+.header_text {
+    text-align: center;
+}
+
+form div div {
+    border-right: 1px solid #e0e0e0;
+}
+
+form div div span {
+    display: inline-block;
+    width: 120px;
+    height: 48px;
+    line-height: 36px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.register_button {
+    padding: 20px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.register_button button {
+    width: 120px;
+    height: 40px;
+    background-color: #f7f7f7;
+    color: #000;
+    font-weight: 600;
+    border: 1px solid #000;
+    line-height: 20px;
+}
+
+.register_button button:hover {
+    background-color: #333333;
+    color: white;
+    border: 1px solid #000;
+}

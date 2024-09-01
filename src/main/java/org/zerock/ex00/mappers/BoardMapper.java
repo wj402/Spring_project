@@ -1,10 +1,12 @@
 package org.zerock.ex00.mappers;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.zerock.ex00.domain.AttachVO;
 import org.zerock.ex00.domain.BoardVO;
 import org.zerock.ex00.domain.Criteria;
 
+@Mapper
 public interface BoardMapper {
 
     java.util.List<BoardVO> getList();

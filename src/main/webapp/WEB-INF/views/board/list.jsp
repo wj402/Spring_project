@@ -6,39 +6,40 @@
 
 <%@include file="../includes/header.jsp"%>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">공지사항 목록</h1>
-<p class="mb-4">교육과정과 교육정책 전반의 정보를
-    통합 제공하고, 협업 소통을 지원하는
-    교육정보 통합 지원 서비스입니다 <a target="_blank"
-                                                               href="https://localhost:8080"> &nbsp;&nbsp; 학습시스템 홈페이지</a>.</p>
+<head>
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/list.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <div class="m-0 font-weight-bold text-primary">
-            <p>학습시스템 공지사항</p>
-            <span class="text-dark">학습시스템 공지사항은 20년이 넘은 공공 교육 정보 서비스입니다</span>
+        <div class="m-0 font-weight-bold text-primary header_text">
+            <h1 class="h3 mb-2 text-gray-800"><a target="_blank" ref="https://localhost:8080">공지사항</a></h1>
         </div>
         <sec:authorize access="isAuthenticated()">
-        <div class="float-right">
+        <div class="float-right register_button" >
             <a href="/board/register">
-                <button class="btn btn-info">글쓰기</button>
+                <button>글쓰기</button>
             </a>
         </div>
         </sec:authorize>
     </div>
     <div class="card-body">
 
-        <div>
+        <div class="type_box">
             <select name='typeSelect'>
-                <option value="" >--</option>
+<%--                <option value="" >--</option>--%>
+                <option value="TC" ${cri.typeStr == 'TC' ? 'selected' : ''} >제목 + 내용</option>
                 <option value="T" ${cri.typeStr == 'T' ? 'selected' : ''} >제목</option>
                 <option value="C" ${cri.typeStr == 'C' ? 'selected' : ''} >내용</option>
                 <option value="W" ${cri.typeStr == 'W' ? 'selected' : ''} >작성자</option>
-                <option value="TC" ${cri.typeStr == 'TC' ? 'selected' : ''} >제목 OR 내용</option>
-                <option value="TW" ${cri.typeStr == 'TW' ? 'selected' : ''} >제목 OR 작성자</option>
-                <option value="TCW" ${cri.typeStr == 'TCW' ? 'selected' : ''} >제목 OR 내용 OR 작성자</option>
+<%--                <option value="TW" ${cri.typeStr == 'TW' ? 'selected' : ''} >제목 OR 작성자</option>--%>
+<%--                <option value="TCW" ${cri.typeStr == 'TCW' ? 'selected' : ''} >제목 OR 내용 OR 작성자</option>--%>
             </select>
             <input type='text' name='keywordInput' value="<c:out value="${cri.keyword}" />" />
             <button class="btn btn-default searchBtn" style="border: 1px solid #333; height: 30px; line-height: 20px;">검색</button>
@@ -59,22 +60,22 @@
 
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>날짜/시간</th>
-                    <th>업데이트 시간</th>
+                <tr style="text-align: center">
+                    <th style="width: 15%;">번호</th>
+                    <th style="width: 15%;">작성자</th>
+                    <th style="width: 30%;">제목</th>
+                    <th style="width: 20%;">날짜/시간</th>
+                    <th style="width: 20%;">업데이트 시간</th>
                 </tr>
                 </thead>
-                <tbody class="tbody" style="cursor: pointer; ">
+                <tbody class="tbody" style="cursor: pointer; text-align: center; ">
                 <c:forEach var="board" items="${list}">
                     <tr data-bno="${board.bno}">
                         <td><c:out  value="${board.bno}"/></td>
-                        <td><c:out  value="${board.title}"/></td>
                         <td><c:out  value="${board.writer}"/></td>
-                        <td><c:out  value="${board.regDate}"/></td>
-                        <td><c:out  value="${board.updateDate}"/> 날짜</td>
+                        <td><c:out  value="${board.title}"/></td>
+                        <td><c:out  value="${board.formattedRegDate}"/></td>
+                        <td><c:out  value="${board.formattedUpdateDate}"/></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -105,19 +106,19 @@
     </div>
 </div>
 
-<div id="myModal" class="modal" tabindex="-1">
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title" id="modalLabel">작성완료</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Modal body text goes here.</p>
+                <p>글 작성이 완료되었습니다.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기</button>
-                <button type="button" class="btn btn-primary">저장하기</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
             </div>
         </div>
     </div>
@@ -125,17 +126,11 @@
 
 <%@include file="../includes/footer.jsp"%>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
 <script>
-    const result = '${result}'
-
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'))
-
-    console.log(myModal)
-
-    if(result){
-        myModal.show()
-    }
-
     const actionForm = document.querySelector("#actionForm")
 
     document.querySelector('.tbody').addEventListener("click", (e) => {
@@ -213,6 +208,24 @@
         actionForm.submit()
     })
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const result = '${result}';
+        const myModalElement = document.getElementById('myModal');
+        const myModal = new bootstrap.Modal(myModalElement);
+
+        if (result) {
+            myModal.show();
+        }
+
+        // 모달을 닫기 위해 버튼 클릭 이벤트 리스너 추가 (선택 사항)
+        document.querySelector('.btn-close').addEventListener('click', function () {
+            myModal.hide(); // 모달을 수동으로 숨깁니다.
+        });
+    });
+
 </script>
+
+
+
 
 <%@include file="../includes/end.jsp"%>

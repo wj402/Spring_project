@@ -5,16 +5,17 @@
 <%@include file="../includes/header.jsp"%>
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">공지사항 수정</h1>
-<p class="mb-4">교육과정과 교육정책 전반의 정보를
-    통합 제공하고, 협업 소통을 지원하는
-    교육정보 통합 지원 서비스입니다 <a target="_blank"
-                         href="https://localhost:8080t"> &nbsp;&nbsp; 학습시스템 홈페이지</a>.</p>
+<head>
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/modify.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">게시판 수정</h6>
+    <div class="card-header py-3 header_text">
+        <h1 class="h3 mb-2 text-gray-800"><a target="_blank" ref="https://localhost:8080">공지사항</a></h1>
     </div>
     <div class="card-body">
 
@@ -47,7 +48,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">날짜/시간</span>
                 </div>
-                <input type="text" class="form-control" value="<c:out value="${vo.regDate}"/>" readonly>
+                <input type="text" class="form-control" value="<c:out value="${vo.formattedRegDate}"/>" readonly>
             </div>
 
             <div class="form-group input-group input-group-lg">
@@ -57,10 +58,10 @@
                 <input type="file" name="files" class="form-control" multiple>
             </div>
 
-            <div class="input-group input-group-lg">
-                <button type="submit" class="btn btn-info btnList">목록</button>
-                <button type="submit" class="btn btn-warning btnModify">수정</button>
-                <button type="submit" class="btn btn-danger btnRemove">삭제</button>
+            <div class="input-group input-group-lg modify_button">
+                <button type="submit" class="btn btnList">목록</button>
+                <button type="submit" class="btn btnModify">수정</button>
+                <button type="submit" class="btn btnRemove">삭제</button>
             </div>
 
             <div class="deleteImages">

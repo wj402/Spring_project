@@ -9,6 +9,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,44 +33,52 @@
     <link href="/resources/css/sb-admin-2.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="${path}/resources/css/login.css">
+    <style>
+        body {
+            /*background: linear-gradient(to bottom right, #000, #e0e0e0);*/
+            background-color: #000;
+            overflow: hidden;
+        }
 
+        .wrap {
+            width: 100%;
+            height: 920px;
+            background-color : rgb(255,255,255,0.6);
+        }
+    </style>
 </head>
 
 <body>
-    <div class="bg">
-        <div class="bg_01">
-            <img src="${path}/resources/img/section1_bg1.png" alt="배경이미지" />
-        </div>
-        <div class="bg_02">
-            <img src="${path}/resources/img/section1_bg2.png" alt="배경이미지" />
-        </div>
-        <div class="bg_03">
-            <img src="${path}/resources/img/section3_bg1.png" alt="배경이미지" />
-        </div>
-        <div class="bg_04">
-            <img src="${path}/resources/img/section2_bg1.png" alt="배경이미지" />
-        </div>
-    </div>
+<div class="wrap">
+<%--    <div class="bg">--%>
+<%--        <div class="bg_01">--%>
+<%--            <img src="${path}/resources/img/section1_bg1.png" alt="배경이미지" />--%>
+<%--        </div>--%>
+<%--        <div class="bg_02">--%>
+<%--            <img src="${path}/resources/img/section1_bg2.png" alt="배경이미지" />--%>
+<%--        </div>--%>
+<%--        <div class="bg_03">--%>
+<%--            <img src="${path}/resources/img/section3_bg1.png" alt="배경이미지" />--%>
+<%--        </div>--%>
+<%--        <div class="bg_04">--%>
+<%--            <img src="${path}/resources/img/section2_bg1.png" alt="배경이미지" />--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
-<div class="container" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+<div class="container" style="position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); ">
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
         <div class="col-xl-10 col-lg-12 col-md-9">
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
+            <div class="card o-hidden border-0 shadow-lg my-5 login_box" >
+                <div class="p-0 login_container">
                     <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                            <img src="${path}/resources/img/hi.jpg" alt="이미지"
-                                 style="width: 460px; height: 460px; background-size: cover; text-align: center" />
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
+                        <div class="login_inner">
+                            <div class="p-5 login_text_box">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">회원 로그인</h1>
                                 </div>
                                 <form class="user" action="/login" method="post">
                                 <div class="form-group">
@@ -90,18 +99,17 @@
                                     <button class="btn btn-primary btn-user btn-block">
                                         로그인
                                     </button>
-                                    <hr>
                                 </form>
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="forgot-password.html">비밀번호를 잊어버리셨나요?</a>
                                 </div>
+                                <hr>
                                 <div class="text-center">
                                     <a class="small" href="register.html">회원가입을 하세요!</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
 
@@ -120,7 +128,7 @@
 
 <!-- Custom scripts for all pages-->
 <script src="/resources/js/sb-admin-2.min.js"></script>
-
+</div>
 </body>
 
 </html>
