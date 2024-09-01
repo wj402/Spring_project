@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Data
 @Builder
@@ -23,4 +26,6 @@ public class ReplyVO {
     private LocalDateTime regDate;
     @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime updateDate;
+
+
 }

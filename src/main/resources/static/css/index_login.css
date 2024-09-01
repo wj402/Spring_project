@@ -1,0 +1,73 @@
+body {
+    position: relative;
+}
+
+ol, ul, li {
+    list-style:none;
+}
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300&display=swap');
+
+html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, em, img, ol, ul, dl, dt, dd, fieldset, form, label, legend, table, caption, tbody, tfoot, strong, header, nav, hgroup, aside, section, article, footer, audio, video, a, input, select, textarea, main {
+    margin:0;
+    padding:0;
+    border:none;
+    outline:none;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    line-height:1;
+}
+
+ol, ul, li {
+    list-style:none;
+}
+img {
+    vertical-align:top;
+}
+a {
+    text-decoration:none;
+}
+input, textarea {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size:12px;
+    vertical-align:top;
+    border:1px solid #757575;
+    appearance:none; /* 브라우저마다 다른 디자인이 적용되므로 기본 디자인을 없애줌. */
+}
+
+.fixed:after {
+    content:'';
+    display:block;
+    clear:both;
+}
+
+.hide {
+    height:0;
+    text-indent:-9999px;
+    visibility:hidden;
+    overflow:hidden;
+}
+
+.login_box {
+    position: relative;
+    top: 20%;
+    width: 440px;
+    height: 470px;
+}
+
+.login_container {
+    width: 440px;
+    height: 470px;
+}
+
+.login_header {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.login_header h1 {
+    text-align: center;
+    width: 100%;
+}

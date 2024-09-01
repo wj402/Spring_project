@@ -2,6 +2,7 @@ package org.zerock.ex00.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,6 +36,7 @@ public class BoardController {
         log.info("list...........");
         log.info("criteria: " + criteria);
 
+        // getList(criteria)와 getBoardList()를 동일한 호출로 대체합니다.
         java.util.List<BoardVO> list = boardService.getList(criteria);
 
         log.info(list);
@@ -44,6 +46,8 @@ public class BoardController {
         PageDTO pageDTO = new PageDTO(criteria, boardService.getTotal(criteria));
 
         model.addAttribute("pageMaker", pageDTO);
+
+
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -216,6 +220,7 @@ public class BoardController {
 
         return "redirect:/board/read/" +bno;
     }
+
 }
 
 

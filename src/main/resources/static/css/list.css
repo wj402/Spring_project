@@ -1,0 +1,48 @@
+
+.header_text {
+   text-align: center;
+   padding-top: 20px;
+   font-weight: bold;
+}
+
+.register_button a {
+    display: block;
+    text-align: right;
+}
+
+.register_button a button {
+    width: 80px;
+    height: 38px;
+    background-color: white;
+    font-weight: 600;
+    border: 1px solid #e7e7ea;
+}
+
+.type_box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+}
+
+.type_box select{
+    height: 30px;
+    margin-right: 4px;
+}
+
+.type_box input {
+    width: 200px;
+    height: 30px;
+    margin-right: 4px;
+}
+
+.type_box button {
+    height: 30px;
+    margin-right: 4px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}

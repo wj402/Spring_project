@@ -102,4 +102,9 @@
         </where>
     </delete>
 
+    <!-- 날짜를 yyyy-MM-dd 형식으로 포맷 -->
+    <select id="getCurrentDateFormatted" resultType="String">
+        SELECT DATE_FORMAT(NOW(), '%Y-%m-%d')
+    </select>
+
 </mapper>

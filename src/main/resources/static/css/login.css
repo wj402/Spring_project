@@ -1,6 +1,5 @@
 body {
-    background-color: #ecf9ff;
-    overflow: hidden;
+    position: relative;
 }
 
 ol, ul, li {
@@ -51,31 +50,20 @@ input, textarea {
     overflow:hidden;
 }
 
-.bg {
-    width: 100%;
-    position: absolute;
+.login_box {
+    position: relative;
+    width: 440px;
+    height: 470px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.bg .bg_01 {
-    position: absolute;
-    top: 0;
-    left: 0;
+.login_container {
+    width: 440px;
+    height: 470px;
 }
 
-.bg .bg_02 {
-    position: absolute;
-    top: 0;
-    right: -100px;
-}
-
-.bg .bg_03 {
-    position: absolute;
-    top: 500px;
-    right: -50px;
-}
-
-.bg .bg_04 {
-    position: absolute;
-    top: 700px;
-    left: 0;
+.login_header {
+    border: 1px solid yellowgreen;
 }
