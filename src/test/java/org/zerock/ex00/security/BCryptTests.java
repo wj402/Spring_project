@@ -19,21 +19,21 @@ public class BCryptTests {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-//    @Test
-//    public void test1() {
-//        String str = "1111";
-//
-//        String enStr = passwordEncoder.encode(str);
-//
-//        log.info(enStr);
-//
-//        boolean match = passwordEncoder.matches("1111", enStr);
-//
-//        log.info("match result");
-//        log.info(match);
-//
-//
-//    }
+    @Test
+    public void test1() {
+        String str = "1111";
+
+        String enStr = passwordEncoder.encode(str);
+
+        log.info(enStr);
+
+        boolean match = passwordEncoder.matches("1111", enStr);
+
+        log.info("match result");
+        log.info(match);
+
+
+    }
 
 
 //    @Test

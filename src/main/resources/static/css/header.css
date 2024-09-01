@@ -34,64 +34,86 @@ a {
     overflow:hidden;
 }
 
-header {
-    width:100%;
-    margin:0 auto;
-    height:100px;
-    background-color: #fff;
+/*header {*/
+/*    width:100%;*/
+/*    margin:0 auto;*/
+/*    height:100px;*/
+/*    background-color: #fff;*/
+/*}*/
+
+/*header h1 {*/
+/*    float:left;*/
+/*}*/
+
+/*.logo {*/
+/*    margin:20px 0;*/
+/*    margin-left: 300px;*/
+/*}*/
+
+
+/*.logo a {*/
+/*    font-size:24px;*/
+/*    font-weight:bold;*/
+/*}*/
+
+/*.logo_nav {*/
+
+/*}*/
+
+/*.logo_nav ul {*/
+/*    float:right;*/
+/*    width: 50%;*/
+
+/*}*/
+
+/*.logo_nav li {*/
+/*    float:left;*/
+/*    margin:40px 80px 40px 0;*/
+/*    position:relative;*/
+
+/*}*/
+
+/*.logo_nav li a {*/
+/*    font-size:20px;*/
+/*    font-weight:bold;*/
+/*    color: #333;*/
+/*}*/
+
+/*.logo_nav li:nth-of-type(5):after {*/
+/*    content:'';*/
+/*    background-url : var('/resources/static/img/search.svg');*/
+/*    display:block;*/
+/*    font-size:22px;*/
+/*    color:#555;*/
+/*    position:absolute;*/
+/*    left:114px;*/
+/*    top:0;*/
+/*    cursor:pointer;*/
+/*}*/
+
+/*.container-fluid {*/
+/*    padding-top: 50px;*/
+/*    width: 100%;*/
+/*}*/
+
+.login_box {
+    position: relative;
+    top: 20%;
+    width: 440px;
+    height: 470px;
 }
 
-header h1 {
-    float:left;
+.login_container {
+    width: 440px;
+    height: 470px;
 }
 
-.logo {
-    margin:20px 0;
-    margin-left: 300px;
+.login_header {
+    display: flex;
+    flex-direction: column-reverse;
 }
 
-
-.logo a {
-    font-size:24px;
-    font-weight:bold;
-}
-
-.logo_nav {
-
-}
-
-.logo_nav ul {
-    float:right;
-    width: 50%;
-
-}
-
-.logo_nav li {
-    float:left;
-    margin:40px 80px 40px 0;
-    position:relative;
-
-}
-
-.logo_nav li a {
-    font-size:20px;
-    font-weight:bold;
-    color: #333;
-}
-
-.logo_nav li:nth-of-type(5):after {
-    content:'';
-    background-url : var('/resources/static/img/search.svg');
-    display:block;
-    font-size:22px;
-    color:#555;
-    position:absolute;
-    left:114px;
-    top:0;
-    cursor:pointer;
-}
-
-.container-fluid {
-    padding-top: 50px;
+.login_header h1 {
+    text-align: center;
     width: 100%;
 }

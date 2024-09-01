@@ -1,9 +1,11 @@
 package org.zerock.ex00.mappers;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.zerock.ex00.domain.Criteria;
 import org.zerock.ex00.domain.ReplyVO;
 
+@Mapper
 public interface ReplyMapper {
 
     Long insert(ReplyVO replyVO);
@@ -19,4 +21,5 @@ public interface ReplyMapper {
 
     int getTotal(@Param("cri")Criteria cri,
                  @Param("bno")Long bno);
+
 }
