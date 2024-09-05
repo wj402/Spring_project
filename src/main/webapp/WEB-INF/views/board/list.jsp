@@ -111,11 +111,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">작성완료</h5>
+                <h5 class="modal-title" id="modalLabel">알림</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>글 작성이 완료되었습니다.</p>
+                <p>작업이 완료되었습니다.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>

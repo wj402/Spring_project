@@ -87,9 +87,9 @@
         where bno = #{bno}
     </update>
 
-    <insert id="insertAttach">
-        insert into tbl_attach (bno, uuid, filename)
-        values (#{bno}, #{uuid}, #{fileName})
+    <insert id="insertAttach" parameterType="AttachVO">
+        INSERT INTO tbl_attach (bno, uuid, filename)
+        VALUES (#{bno}, #{uuid}, #{fileName})
     </insert>
 
     <delete id="deleteAttachFiles">
